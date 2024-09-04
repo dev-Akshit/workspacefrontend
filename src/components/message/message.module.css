@@ -1,0 +1,142 @@
+div.messageWrapper {
+	display: flex;
+	margin-top: .15rem;
+	padding: 1rem 1rem .55rem 1rem;
+}
+
+div.messageWrapper > div.avatarContainer {
+	margin-right: 1rem;
+}
+
+div.messageWrapper > div.message {
+	flex: auto;
+	padding-top: 0.1rem;
+	position: relative;
+}
+
+div.messageWrapper:not(:last-child) > div.message:after {
+	content: '';
+	display: block;
+	border-bottom: 1.5px solid #dfdfdf;
+	position: absolute;
+	width: 15%;
+	margin: 0.50rem 0rem 0rem 0rem;
+}
+
+div.message > div.messageDetails {
+	font-size: 12px;
+	line-height: 15px;
+	font-weight: 600;
+	color: #8d8d8d;
+}
+
+div.messageDetails > div.messageActionContainer {
+	display: inline-block;
+	margin-left: 10px;
+	position: relative;
+}
+
+div.messageDetails > div.messageActionContainer span {
+	margin-right: 10px;
+}
+
+div.message > div.messageContent {
+	position: relative;
+}
+
+div.message > div.messageContent > span:first-child,
+div.message > div.messageContent > span:nth-child(2) {
+	font-weight: 700;
+}
+
+div.message > div.messageContent > span:first-child:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+div.message > div.messageContent > pre {
+	font-family: 'Mulish', sans-serif;
+	display: inline;
+	white-space: pre-wrap;
+	font-weight: 600;
+	overflow-wrap: anywhere;
+}
+
+.usefullContainer {
+	display: inline-block;
+	margin-right: 8px;
+}
+
+.usefullContainer button {
+	color: #333333;
+	border: none;
+	padding: 0;
+	font-weight: 600;
+	box-shadow: none;
+	background-color: inherit;
+}
+
+div.message > div.messageActions {
+	display: inline-flex;
+	margin: 0.25rem 0rem 0.5rem 0rem;
+}
+
+div.message > div.messageActions > button {
+	padding: 0;
+	margin-right: 0.75rem;
+	height: unset;
+	font-weight: 500;
+}
+
+div.message > div.messageActions > button:focus {
+	color: #de6834;
+}
+div.message > div.messageActions > button:hover {
+	color: #eb8b5b;
+}
+
+div.message > div.repliesContainer {
+	position: relative;
+}
+
+div.message > div.repliesContainer::before {
+	content: '';
+	position: absolute;
+	border-left: 2px solid #ededed;
+	height: 98%;
+	left: -2.5rem;
+}
+
+div.repliesContainer > div.repliesActions {
+	display: flex;
+	margin: 0.25rem 0rem 0.5rem 0rem;
+}
+
+div.repliesContainer > div.repliesActions > button {
+	padding: 0;
+	margin-right: 0.75rem;
+	height: unset;
+	font-weight: 500;
+}
+
+span.mentionInMessage {
+	color: #de6834 !important;
+	padding: 1px;
+	/* background: #FFEEE5; */
+}
+.likeBadge span {
+	margin: 0 !important;
+}
+.likeButton {
+	border: none !important;
+	padding: inherit !important;
+	height: inherit !important;
+}
+.onlineUserIcon {
+	background-color: #52c41a;
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	position: relative;
+	top: 3px;
+}

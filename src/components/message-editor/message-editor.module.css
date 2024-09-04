@@ -1,0 +1,278 @@
+div.messageEditorWrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+div.messageEditorWrapper.sidebarEmbed:not(.replyEditorWrapper) {
+	margin: 0.25rem 0.5rem 0.5rem 0.5rem;
+}
+
+div.messageEditorWrapper>div.messageEditor {
+	display: flex;
+	align-items: center;
+}
+
+div.messagePreviewContainer {
+	display: flex;
+	align-items: center;
+}
+
+div.previewListContainer {
+	padding: 10px;
+	/* background-color: #F0F2F5; */
+	background-color: #F2f2f2;
+	margin-bottom: 8px;
+	border-radius: 6px 6px 6px 6px;
+	border-left: 1px solid #f2f2f2;
+	border-right: 1px solid #f2f2f2;
+	border-bottom: 1px solid #f2f2f2;
+	box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px 0px inset;
+}
+
+div.previewListContainer {
+	width: 100%;
+}
+
+div.previewListContainer.replyPreviewListContainer {
+	width: 50%;
+}
+
+div.previewListContainer.replyPreviewListContainer.sidebarEmbedPreviewListContainer{
+	width: 100% !important;
+}
+
+div.attachmentsPreviewList {
+	gap: 12px;
+	display: flex;
+	justify-content: start;
+}
+
+div.attachmentContainer {
+	width: 100px;
+	height: 100px;
+	display: flex;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	border-radius: 4px;
+}
+
+div.attachmentContainer > div.attachmentStage {
+	top: 2px;
+	right: 2px;
+	width: 30px;
+	height: 30px;
+	padding: 3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	border-radius: 50%;
+	background-color: #ccc;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+
+div.attachmentContainer > img {
+	width: 100px;
+	height: 100px;
+	border-radius: 3px;
+}
+
+div.editMessageContainer, div.editReplyContainer {
+	width: 100%;
+	position: relative;
+}
+
+div.editMessageContainer>div.attachmentStage,
+div.editReplyContainer>div.attachmentStage {
+	top: -20px;
+	right: -25px;
+	width: 30px;
+	height: 30px;
+	padding: 3px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	border-radius: 50%;
+	background-color: #ccc;
+}
+
+div.editMessageContainer span {
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	word-break: break-all;
+	-webkit-box-orient: vertical;
+}
+
+div.editReplyContainer span {
+	overflow: hidden;
+	display: -webkit-box;
+	word-break: break-all;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+}
+
+div.messageEditor>div.messageEditorAvatar {
+	margin-right: 1rem;
+}
+
+div.messageEditor>div.messageEditorInput {
+	flex: auto;
+	display: flex;
+	align-items: center;
+	border: 1px solid #dbdbdb;
+	border-radius: 250px;
+	padding: 1rem 0.5rem 1rem 0.5rem;
+	margin-right: 0.5rem;
+	background-color: #ffff;
+}
+
+div.replyEditorWrapper div.messageEditor > div.messageEditorInput {
+	border-radius: 250px;
+	padding: 0.5rem;
+	max-width: 50%;
+}
+
+div.replyEditorWrapper.sidebarEmbed div.messageEditor > div.messageEditorInput {
+	max-width: 100%;
+}
+
+div.messageEditorWrapper.sidebarEmbed:not(.replyEditorWrapper) div.messageEditor>div.messageEditorAvatar {
+	margin-right: 0.5rem;
+}
+
+div.messageEditorWrapper.sidebarEmbed:not(.replyEditorWrapper) div.messageEditor>div.messageEditorInput {
+	padding: 0.5rem;
+}
+
+div.messageEditorInput>div.addEmojiContainer,
+div.messageEditorInput>div.uploadButtonContainer {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+div.uploadButtonContainer>span {
+	line-height: normal;
+}
+
+div.messageEditor>div.sendButtonContainer {
+	/* align-self: stretch; */
+	display: flex;
+	/* align-items: center; */
+}
+div.emojiPickerContainer{
+	position: relative;
+}
+
+div.emojiPickerContainer>div.emojiPicker{
+	position: absolute;
+	bottom: 23px;
+	right: 18px;
+}
+
+div.messageEditorInput>div.addEmojiContainer,
+div.sendButtonContainer>button,
+div.messageEditorInput>div.uploadButtonContainer button {
+	padding: 5px;
+	min-width: unset;
+	min-height: unset;
+	width: unset;
+	height: fit-content;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+div.sidebarEmbed div.sendButtonContainer>button,
+div.sidebarEmbed div.messageEditorInput>div.uploadButtonContainer button {
+	padding: 1px;
+}
+
+div.messageEditorInput>div.messageTextareaContainer {
+	flex: auto;
+	margin-left: 2rem;
+	margin-right: 0.25rem;
+	position: relative;
+}
+
+div.messageEditorInput>div.messageTextareaContainer.sidebarEmbed {
+	margin-left: 0.2rem;
+}
+
+div.replyEditorWrapper div.messageEditorInput>div.messageTextareaContainer {
+	margin-left: 1.5rem;
+	margin-right: 1rem;
+}
+
+div.messageTextareaContainer textarea {
+	border: none;
+	overflow-y: auto !important;
+	overflow: auto;
+}
+
+div.messageTextareaContainer textarea::placeholder {
+	white-space: nowrap;
+}
+
+div.messageTextareaContainer>div>div>div:first-child {
+	overflow-wrap: anywhere !important;
+	max-height: 70px;
+}
+
+div.replyEditorWrapper div.messageTextareaContainer>div>div>div:first-child {
+	max-height: 110px;
+}
+
+div.mentionSuggestionContainer {
+	display: flex;
+	margin: 0.5rem 0;
+}
+
+div.mentionSuggestionContainer>div.mentionSuggestionAvatarContainer {
+	margin-right: 0.75rem;
+	display: flex;
+	align-items: center;
+}
+
+div.mentionSuggestionContainer>div.mentionSuggestionDetailsContainer {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+div.mentionSuggestionDetailsContainer>div:first-child>span {
+	font-weight: 600;
+}
+
+div.mentionSuggestionDetailsContainer>div {
+	display: flex;
+}
+
+div.mentionSuggestionDetailsContainer>div>span {
+	display: inline-block;
+	max-width: 150px;
+	word-wrap: break-word;
+}
+
+div.currentEditMessageContainer {
+	display: grid;
+	border-left: 5px solid #de6834;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border-right: 5px solid #de6834;
+	padding-left: 12px;
+	padding-right: 18px;
+	border-radius: 10px;
+	max-height: 50px;
+	overflow: auto;
+	word-break: normal;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+}
+
+div.sidebarEmbed div.currentEditMessageContainer {
+	overflow-wrap: anywhere;
+}

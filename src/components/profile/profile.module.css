@@ -1,0 +1,15 @@
+.menuItemInner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.logout {
+  margin: 0px;
+  padding: 0px;
+  align-items: center;
+}
+
+.logout > div {
+  gap: 1px;
+}

@@ -1,0 +1,79 @@
+div.notFoundWrapper {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+div.notFoundWrapper > div.notFoundContainer {
+	flex: auto;
+	display: flex;
+}
+
+div.notFoundContainer > div.leftPane,
+div.notFoundContainer > div.rightPane {
+	position: relative;
+	flex: 0 0 50%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 1.5rem;
+	margin: auto 0px;
+}
+
+div.leftPane > div.textContainer {
+	padding-left: 6rem;
+}
+
+div.leftPane > div.textContainer > h1 {
+	color: var(--primary-color);
+	font-size: 43px;
+	font-weight: 600;
+	margin: 0;
+}
+
+div.leftPane > div.textContainer > p {
+	font-size: 23px;
+}
+
+div.leftPane > div.textContainer > a {
+	font-size: 18px;
+}
+
+div.leftPane > div.circleArtwork {
+	position: absolute;
+	top: 0%;
+	left: 0;
+}
+
+div.circleArtwork > div:nth-child(1){
+	background-color: #88462a;
+	width: 120px;
+	height: 120px;
+	opacity: 0.4;
+	border-radius: 50%;
+	position: relative;
+	right: 15px;
+}
+
+div.circleArtwork > div:nth-child(2) {
+	background-color: #de6834;
+	width: 75px;
+	height: 90px;
+	opacity: 0.4;
+	border-radius: 50%;
+	position: relative;
+	right: 50px;
+	top: -56px;
+}
+
+div.circleArtwork > div:nth-child(3) {
+	background-color: #e6b9a1;
+	width: 161px;
+	height: 168px;
+	opacity: 0.4;
+	border-radius: 50%;
+	position: relative;
+	right: 68px;
+	top: -108px;
+}

@@ -1,0 +1,288 @@
+div.sidebarWrapper {
+	flex: auto;
+	display: flex;
+	position: relative;
+	flex-direction: column;
+}
+
+span.createWorkspaceActionButton {
+	position: absolute;
+	top: 50%;
+	left: 6px;
+	transform: translate(0, -57%);
+	width: 30px;
+
+}
+
+span.createWorkspaceActionButton > button {
+	color: var(--primary-color);
+	background-color: #ffeee5;
+}
+
+span.createWorkspaceActionButton > button:hover {
+	color: var(--primary-color);
+	background-color: #ffeee5;
+}
+
+span.createWorkspaceActionButton > button:focus {
+	color: var(--primary-color);
+	background-color: #ffeee5;
+}
+
+div.sidebarWrapper.embedSidebar {
+}
+
+div.sidebarWrapper > div.sidebarMain {
+	/* flex: auto; */
+	display: flex;
+	flex-direction: column;
+	flex: none;
+	height: calc(100vh - 42px);
+}
+
+div.sidebarMain > div.workspaceSelectorContainer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 8px 0px 5px 0px;
+	border-bottom: 1px solid #f2f2f2;
+  box-shadow: rgb(0 0 0 / 4%) 0px 1px 2px;
+}
+
+div.sidebarFooter {
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 0px 10px 0px;
+	border-top: 1px solid #f2f2f2;
+	-webkit-box-shadow: 0px -2px 3px rgb(0 0 0 / 4%);
+  -moz-box-shadow: 0px -2px 3px rgb(0 0 0 / 4%);
+  box-shadow: 0px -1px 4px rgb(0 0 0 / 4%);
+}
+
+div.sidebarFooter > div.workspaceActions {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	min-height: 30px;
+	width: 100%;
+}
+
+div.workspaceSelectorContainer
+	> :global(div.ant-select > div.ant-select-selector) {
+	flex: 0 0 100%;
+	border: 0;
+	box-shadow: none;
+}
+div.workspaceSelectorContainer
+	> :global(.ant-select-show-search.ant-select:not(.ant-select-customize-input)
+		.ant-select-selector) {
+	border: 0;
+	cursor: pointer;
+	box-shadow: none;
+	transition: none;
+}
+div.workspaceSelectorContainer
+	> :global(.ant-select-single.ant-select-show-arrow
+		.ant-select-selection-search) {
+	right: 30px;
+}
+div.workspaceSelectorContainer
+	> :global(div.ant-select
+		> div.ant-select-selector
+		> span.ant-select-selection-item) {
+	font-size: 16px;
+	padding-left: 0;
+	padding-right: 0;
+	margin-right: 20px;
+	font-weight: 700;
+	cursor: text;
+}
+
+div.sidebarMain > div.channelsListContainer,
+div.sidebarMain > div.dmsListContainer {
+	display: flex;
+	flex-direction: column;
+	margin-top: 0.5rem;
+}
+
+div.embedSidebar > div.sidebarMain > div.channelsListContainer,
+div.embedSidebar > div.sidebarMain > div.dmsListContainer {
+	margin: 0;
+}
+
+div.channelsListContainer > div:first-child,
+div.dmsListContainer > div:first-child {
+	display: flex;
+	padding-left: 1.2rem;
+	align-items: center;
+	/* margin: .5rem 0 0.3rem 0; */
+	
+	/* need discussion */
+	padding: .5rem 0 0.3rem 1.2rem;
+	/* box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px, rgba(255, 255, 255, 0.25) 0px 1px 0px inset;
+	box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px; */
+}
+
+div.embedSidebar div.channelsListContainer > div:first-child,
+div.embedSidebar div.dmsListContainer > div:first-child {
+	margin-top: 0;
+}
+
+div.channelsListContainer > div:first-child > h3,
+div.dmsListContainer > div:first-child > h3 {
+	font-weight: 600;
+	font-size: 15px;
+	margin: 0;
+}
+
+div.channelsListContainer > div:first-child > span,
+div.dmsListContainer > div:first-child > span {
+	color: #9f9f9f;
+	font-size: 12px;
+	margin-left: 0.25rem;
+	margin-top: 0.18rem;
+}
+
+div.channelsListContainer > div.channelsListWrapper,
+div.channelsListContainer > div.channelActions,
+div.dmsListContainer > div.dmsListWrapper {
+	display: flex;
+	flex-direction: column;
+}
+div.channelsListContainer > div.channelsListWrapper,
+div.dmsListContainer > div.dmsListWrapper {
+	overflow: auto;
+	/* max-height: 176px; */
+}
+
+div.channelsListWrapper > button {
+	flex: auto;
+	display: flex;
+	height: unset;
+	padding: 0.35rem 0.35rem 0.35rem 2.5rem;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+}
+
+div.dmsListWrapper > button {
+	gap: 2px;
+	flex: auto;
+	display: flex;
+	height: unset;
+	align-items: center;
+	position: relative;
+	padding: 0.35rem 0.35rem 0.35rem 2.5rem;
+}
+
+div.channelsListWrapper > button:hover,
+div.dmsListWrapper > button:hover {
+	background-color: #fff7f2;
+}
+
+div.channelsListWrapper > button.active,
+div.dmsListWrapper > button.active {
+	font-weight: 700 !important;
+	background-color: #ffeee5;
+}
+
+div.channelsListWrapper > button > div.channelNameContainer{
+	gap: 2px;
+	display: flex;
+	align-items: center;
+}
+
+span.channelName,
+div.dmsListWrapper > button > span {
+	max-width: calc(250px - 8rem);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	word-wrap: break-word;
+}
+
+div.channelsListWrapper > button::before,
+div.dmsListWrapper > button::before {
+	display: inline-flex;
+	content: '#';
+	position: absolute;
+	top: unset;
+	right: unset;
+	bottom: unset;
+	left: 1.7rem;
+	background: transparent;
+	opacity: 1;
+	align-items: center;
+}
+
+div.channelsListContainer > div.channelActions,
+div.dmsListContainer > div.channelActions {
+	margin-top: 0.5rem;
+}
+div.channelsListContainer {
+	/* flex: auto; */
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	/* margin-bottom: 1rem; */
+	overflow-y: auto;
+	/* flex: 1; */
+}
+div.dmsListContainer {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	/* margin-bottom: 1rem; */
+	overflow-y: auto;
+	/* flex: 1; */
+}
+
+div.channelActions > div,
+div.workspaceActions > div {
+	display: flex;
+	padding-left: 4rem;
+	align-items: center;
+	margin-bottom: 0.25rem;
+}
+
+div.workspaceActions > div {
+	margin-bottom: 0;
+}
+
+div.channelActions > div > button,
+div.workspaceActions > div > button {
+	height: unset;
+	padding: 0;
+	font-weight: 600;
+	color: var(--primary-color);
+	background-color: transparent;
+}
+
+div.channelActions > div > button:hover,
+div.channelActions > div > button:focus,
+div.workspaceActions > div > button:hover,
+div.workspaceActions > div > button:focus {
+	color: var(--primary-color);
+	background-color: transparent;
+}
+
+div.channelActions > div > button > span,
+div.workspaceActions > div > button > span {
+	position: relative;
+}
+
+div.channelActions > div > button > span::before,
+div.workspaceActions > div > button > span::before {
+	content: '+';
+	font-weight: 800;
+	position: absolute;
+	left: -13px;
+}
+.channelEditContainer {
+	color: #8d8d8d;
+	font-size: 12px;
+	margin-left: 5px;
+}

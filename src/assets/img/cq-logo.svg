@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 33 38" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style id="style2">.a{fill:#de6834;}.b{fill:#fff;font-size:20px;font-family:Changa;font-weight:800;}.c{font-family:ChangaOne, Changa One;font-weight:400;}</style>
+  </defs>
+  <path id="rect6" style="fill:#de6834" d="m 3,0 h 27 c 1.662,0 3,1.338 3,3 v 32 c 0,1.662 -1.338,3 -3,3 H 3 C 1.338,38 0,36.662 0,35 V 3 C 0,1.338 1.338,0 3,0 Z" class="a"/>
+  <g aria-label="cq" transform="matrix(1, 0, 0, 1, 5.999999, 30.000001)" id="text12" style="font-weight:800;font-size:20px;font-family:Changa;fill:#ffffff" class="b">
+    <path d="M 7.74,-0.2 Q 6.54,0.2 5.08,0.2 3.64,0.2 2.86,-0.22 2.08,-0.66 1.72,-1.76 1.36,-2.88 1.36,-5 q 0,-3.08 0.86,-4.14 0.88,-1.06 3.14,-1.06 1.26,0 2.34,0.36 l -0.44,1.68 q -1.22,-0.22 -1.94,-0.22 -1.78,0 -1.78,1.44 v 5.3 q 0.76,0.1 1.78,0.1 1.02,0 2.18,-0.36 z" id="path23" style="stroke: rgb(255, 255, 255); stroke-width: 0.75px;"/>
+    <path d="m 17.239996,-10 h 2 V 3.02 l -4,0.28 V 0 q -0.78,0.3 -2,0.3 -1.22,0 -2.1,-0.46 -0.88,-0.48 -1.3399997,-1.28 -0.86,-1.52 -0.86,-3.74 0,-2.24 1.1199997,-3.68 1.14,-1.44 3.58,-1.44 1.74,0 3.04,0.86 z m -4,3.46 v 3.92 h 0.62 q 0.72,0 1.04,-0.14 0.34,-0.16 0.34,-0.7 v -3.92 h -0.62 q -0.72,0 -1.06,0.16 -0.32,0.14 -0.32,0.68 z" style="font-weight:400;font-family:ChangaOne, 'Changa One'" id="path25"/>
+  </g>
+</svg>

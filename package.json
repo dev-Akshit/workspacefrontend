@@ -1,0 +1,77 @@
+{
+  "name": "workspace-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^4.6.4",
+    "@craco/craco": "^6.3.0",
+    "@types/node": "^12.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-linkify": "^1.0.1",
+    "@types/react-mentions": "^4.1.4",
+    "@types/react-router-dom": "^5.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "@typescript-eslint/parser": "^4.31.2",
+    "antd": "^4.16.13",
+    "axios": "^0.21.4",
+    "craco-less": "^1.20.0",
+    "emoji-picker-react": "^4.11.1",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-airbnb-typescript": "^14.0.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.26.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "immer": "^9.0.6",
+    "rc-virtual-list": "^3.4.8",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-feather": "^2.0.10",
+    "react-google-recaptcha": "^3.1.0",
+    "react-linkify": "^1.0.0-alpha",
+    "react-mentions": "^4.3.0",
+    "react-router": "^5.2.1",
+    "react-router-dom": "^5.3.0",
+    "react-scripts": "4.0.3",
+    "socket.io-client": "^4.7.5",
+    "source-map-explorer": "^2.5.2",
+    "typed-emitter": "^1.3.1",
+    "typescript": "^4.1.2",
+    "use-debounce": "^7.0.1",
+    "zustand": "^3.5.10"
+  },
+  "scripts": {
+    "start:https": "HTTPS=true craco start",
+    "start": "craco --openssl-legacy-provider start",
+    "build": "GENERATE_SOURCEMAP=false craco --openssl-legacy-provider build",
+    "build:test": "craco build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "test": "craco test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/react-google-recaptcha": "^2.1.9"
+  }
+}

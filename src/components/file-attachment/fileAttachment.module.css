@@ -1,0 +1,5 @@
+.pdf_link{ 
+	display: flex;
+	overflow: hidden;
+	width: fit-content;
+}

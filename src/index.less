@@ -1,0 +1,346 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~antd/dist/antd.less';
+
+@primary-color: #de6834;
+
+:root {
+	--primary-color: @primary-color;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Mulish:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-Light.ttf') format('truetype');
+// 	font-weight: 300;
+// 	font-style: normal;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-LightOblique.ttf') format('truetype');
+// 	font-weight: 300;
+// 	font-style: oblique;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-Book.ttf') format('truetype');
+// 	font-weight: 400;
+// 	font-style: normal;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-BookOblique.ttf') format('truetype');
+// 	font-weight: 400;
+// 	font-style: oblique;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-Roman.ttf') format('truetype');
+// 	font-weight: 500;
+// 	font-style: normal;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-Oblique.ttf') format('truetype');
+// 	font-weight: 500;
+// 	font-style: oblique;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-Medium.ttf') format('truetype');
+// 	font-weight: 600;
+// 	font-style: normal;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-MediumOblique.ttf') format('truetype');
+// 	font-weight: 600;
+// 	font-style: oblique;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-Heavy.ttf') format('truetype');
+// 	font-weight: 800;
+// 	font-style: normal;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-HeavyOblique.ttf') format('truetype');
+// 	font-weight: 800;
+// 	font-style: oblique;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-Black.ttf') format('truetype');
+// 	font-weight: 900;
+// 	font-style: normal;
+// }
+
+// @font-face {
+// 	font-family: 'Avenir';
+// 	src: url('./assets/fonts/Avenir/Avenir-BlackOblique.ttf') format('truetype');
+// 	font-weight: 900;
+// 	font-style: oblique;
+// }
+
+* {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	outline: none;
+}
+
+.selectable, .selectable * {
+	-webkit-touch-callout: text;
+	-webkit-user-select: text;
+	-khtml-user-select: text;
+	-moz-user-select: text;
+	-ms-user-select: text;
+	user-select: text;
+}
+
+html, body {
+	font-family: 'Mulish', sans-serif;
+	color: #333;
+}
+
+::-webkit-scrollbar {
+	width: 7px;
+	height: 5px;
+}
+
+::-webkit-scrollbar-track {
+	border-radius: 20px;
+}
+ 
+::-webkit-scrollbar-thumb {
+	background: #e5e5e5;
+	border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #8e8e8e;
+}
+
+div#root {
+  height: 100%;
+}
+
+div.ant-spin {
+  max-height: unset !important;
+}
+
+.flash-highlight {
+	border-radius: 10px;
+	animation: highlight 5000ms ease-in-out;
+}
+
+@keyframes highlight {
+	0% {
+    background-color: transparent;
+  }
+  5% {
+    background-color:#feeee5;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+	box-shadow: 0px 3px 6px #00000029;
+	border: 1px solid #D1D1D1;
+}
+
+div.ant-tooltip > div.ant-tooltip-content > div.ant-tooltip-inner {
+	font-family: 'Hind', sans-serif;
+	font-size: 13px;
+}
+
+div.ant-popover-inner {
+	border-radius: 10px;
+	min-width: 200px;
+	max-width: 320px;
+}
+
+div.ant-popover-inner > div.ant-popover-inner-content {
+	// display: flex;
+	// flex-direction: column;
+	// justify-content: center;
+	// align-items: center;
+	// padding: 0rem 0rem;
+}
+
+div.ant-popover div.ant-popover-inner-content {
+	padding: 0rem 0rem;
+}
+
+div.ant-popconfirm.ant-popover div.ant-popover-inner-content {
+	padding: 12px 16px !important;
+}
+
+div.ant-popover-inner-content > div.ant-popover-message {
+	display: flex;
+}
+
+div.ant-popover-inner-content > div.ant-popover-message > span {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: unset;
+	margin-right: 0.5rem;
+}
+
+div.ant-popover-inner-content > div.ant-popover-message > div.ant-popover-message-title {
+	padding: 0;
+}
+
+div.ant-popover-inner-content > div.ant-popover-buttons {
+	display: flex;
+	flex-direction: row-reverse;
+	width: 100%;
+}
+
+div.ant-popconfirm div.ant-popover-inner-content > div.ant-popover-buttons {
+	justify-content: flex-end;
+	flex-direction: row;
+}
+
+div.ant-popconfirm div.ant-popover-inner-content > div.ant-popover-buttons > button {
+	flex: none;
+	padding: 0.15rem 1rem;
+	position: relative;
+}
+
+div.ant-popconfirm div.ant-popover-inner-content > div.ant-popover-buttons > button > span {
+	position: relative;
+	top: 1px;
+}
+
+div.ant-popover-inner-content > div.ant-popover-buttons > button {
+	flex: auto;
+	border-radius: 20px;
+	font-family: 'Hind', 'sans-serif';
+	font-size: 13px;
+	text-transform: capitalize;
+	padding: 0.15rem;
+	height: unset;
+	position: relative;
+}
+
+.ant-select-arrow .anticon:not(.ant-select-suffix) {
+	pointer-events: none;
+}
+
+.ant-menu-submenu-title{
+	font-weight: 600;
+	background: #FAFAFA;
+	margin: 0 !important;
+	height: 50px !important;
+	border-bottom: 1px solid #EFEFEF;
+}
+.ant-menu-item{
+	background: white;
+	margin: 0 !important;
+	height: 34px !important;
+	color: #333333 !important;
+	border-bottom: 1px solid #F4F4F4;
+	cursor: auto;
+}
+.ant-menu-title-content{
+	line-height: 34px !important;
+	display: flex;
+}
+.ant-menu-title-content span:first-child{
+  text-overflow: ellipsis;
+  overflow: hidden; 
+  white-space: nowrap;
+	max-width: 90%;
+	font-size: small;
+  line-height: 15px;
+}
+
+.rc-virtual-list-holder {
+	height: unset !important;
+	overflow-x: hidden !important;
+	overflow-y: auto !important;
+	min-height: 0px !important;
+	max-height: 300px !important;
+}
+
+.ant-drawer-mask, .ant-modal-mask {
+	background: none;
+}
+// div.ant-popover-inner-content > div.ant-popover-buttons > button > span {
+// 	position: relative;
+// 	top: 1px;
+// }
+
+div.app-progress-loader-container {
+	flex: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+div.app-progress-loader-container > p {
+	color: '#333333b5';
+	font-size: 16px;
+	text-align: 'center';
+}
+.ant-popover-arrow-content{
+	margin: 0;
+}
+.ant-tooltip-arrow-content{
+	margin-left: 5px;
+}
+.ant-tooltip-placement-left .ant-tooltip-arrow-content{
+	margin-left: 4px;
+}
+.ant-tooltip-placement-leftTop .ant-tooltip-arrow-content{
+	margin-left: 4px;
+}
+.ant-tabs-content-holder{
+	display: flex;
+}
+.ant-tabs-tabpane-active{
+	display: flex;
+	flex-direction: column;
+}
+.ant-tabs.ant-tabs-top{
+	flex: auto;
+}
+.likeBtnn.ant-btn:active, .likeBtnn.ant-btn:focus{
+	color: #333333;
+}
+.ant-divider-horizontal.ant-divider-with-text::before, .ant-divider-horizontal.ant-divider-with-text::after{
+	top: 0;
+}
+.ant-tabs-top > .ant-tabs-nav {
+	margin-bottom: 8px;
+	padding: 0rem 1.5rem;
+	border-bottom: 1px solid #f2f2f2;
+  box-shadow: rgb(0 0 0 / 4%) 0px 1px 2px;
+}
+
+.ant-tabs-top > .ant-tabs-nav::before {
+	border-bottom: none;
+}
+
+.ant-input {
+	box-shadow: none !important;
+}

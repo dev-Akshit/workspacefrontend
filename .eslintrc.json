@@ -1,0 +1,75 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+		"airbnb/hooks",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "project": "./tsconfig.json",
+		"tsconfigRootDir": "."
+  },
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "react-hooks"
+  ],
+  "settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [
+					".js",
+					".jsx",
+					".ts",
+					".tsx"
+				]
+			}
+		}
+	},
+  "rules": {
+		"indent": [1, "tab", {
+			"SwitchCase": 1
+		}],
+		"linebreak-style": 0,
+		"react/jsx-indent": [1, "tab"],
+		"react/jsx-indent-props": [1, "tab"],
+		"@typescript-eslint/indent": [1, "tab"],
+		"import/prefer-default-export": "off",
+		"no-tabs": "off",
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"jsx": "never",
+				"ts": "never",
+				"tsx": "never",
+				"mjs": "never"
+			}
+		],
+		"react-hooks/rules-of-hooks": "error",
+		"react/prop-types": "off",
+		"no-underscore-dangle": "off",
+		"@typescript-eslint/naming-convention": [
+		  "error",
+		  {
+		    "selector": "variable",
+		    "format": ["camelCase", "PascalCase", "UPPER_CASE"],
+				"leadingUnderscore": "allow"
+		  }
+		],
+		"import/export": "off",
+		"react/require-default-props": "off"
+	}
+}

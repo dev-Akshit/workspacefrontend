@@ -1,0 +1,40 @@
+
+.formOnly {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.actionButton {
+	padding-top: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.passwordContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+}
+
+.passwordContainer >:global(div.ant-row) {
+	margin-bottom: 2px;
+}
+
+.remeberMeContainer {
+	display: flex;
+	justify-content: space-between;
+	align-items: start;
+}
+
+.forgotPasswordLink {
+	padding-top: 5px;
+	text-decoration: underline;
+}
+
+.loginButton {
+	width: 9rem;
+}

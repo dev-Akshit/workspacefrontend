@@ -1,0 +1,20 @@
+
+.formOnly {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.actionButton {
+	padding-top: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+
+.forgotButton {
+	width: 9rem;
+}

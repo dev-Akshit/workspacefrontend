@@ -1,0 +1,22 @@
+div.disabledWrapper {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+}
+
+div.disabledWrapper > div.disabledContainer {
+	flex: auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	padding: 1rem;
+}
+
+div.disabledContainer h3,
+div.disabledContainer span {
+	margin-bottom: 0;
+	display: inline-block;
+	text-align: center;
+}

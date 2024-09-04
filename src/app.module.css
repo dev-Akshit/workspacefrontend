@@ -1,0 +1,20 @@
+div.wrapper,
+div.wrapper > :global(div.ant-spin-container) {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+div.wrapper > :global(div.ant-spin-blur) {
+  opacity: 0.05;
+}
+
+div.wrapper > div > :global(div.ant-spin-lg) > :global(div.ant-spin-text) {
+	font-size: 18px;
+	padding-top: 0.25rem;
+}
+
+div.wrapper > div > :global(div.ant-spin-lg) > :global(svg.ant-spin-dot) {
+	font-size: 120px;
+	margin: -70px -60px !important;
+}

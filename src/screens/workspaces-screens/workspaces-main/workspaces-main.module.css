@@ -1,0 +1,179 @@
+div.workspacesWrapper {
+	display: flex;
+	height: 100%;
+}
+
+div.workspacesWrapper> :global(div.ant-spin-container) {
+	display: flex;
+	flex: auto;
+}
+
+div.workspacesWrapper.sidebarEmbed {
+	flex-direction: column;
+}
+
+div.workspacesWrapper.sidebarEmbed> :global(div.ant-spin-container) {
+	flex-direction: column;
+	overflow: hidden;
+}
+
+div.workspacesTopbarContainer {
+	display: flex;
+	flex-direction: column;
+	border-bottom: 5px solid #feeee5;
+}
+
+div.workspacesSidebarContainer {
+	flex: 0 0 250px;
+	display: flex;
+	flex-direction: column;
+	border-right: 1px solid #dddddd;
+}
+
+div.workspacesMainContainer {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	padding: .45rem 0rem 0rem 0rem;
+	overflow-y: auto;
+}
+
+div.workspacesMainContainer.sidebarEmbed {
+	padding: 0rem 0rem;
+}
+
+div.workspacesMainContainer>div.workspacePromptContainer,
+div.discussionAreaContainer>div.emptyDiscussionContainer {
+	flex: auto;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	flex-grow: 1;
+	position: relative;
+}
+
+div.emptyDiscussionContainer {
+	flex: auto;
+	display: flex;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+div.discussionAreaContainer>div.discussionAreaHeader {
+	margin-bottom: 1.5rem;
+	margin-top: 0.5rem;
+}
+
+div.discussionAreaHeader>span:first-child {
+	font-size: 17px;
+	font-weight: 600;
+	color: #2c2c2c;
+}
+
+div.discussionAreaHeader>span:nth-child(2) {
+	font-size: 13px;
+	color: #9f9f9f;
+}
+
+div.workspacePromptContainer h1,
+div.emptyDiscussionContainer h1,
+div.workspacePromptContainer h2,
+div.emptyDiscussionContainer h2,
+div.workspacePromptContainer h3,
+div.emptyDiscussionContainer h3,
+div.emptyDiscussionContainer div {
+	display: inline-block;
+	margin-bottom: -0.15rem;
+	text-align: center;
+}
+
+div.emptyDiscussionContainer h2 {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	max-width: 25rem;
+}
+
+div.emptyDiscussionContainer span,
+div.workspacePromptContainer span {
+	display: inline-block;
+	text-align: center;
+}
+
+div.workspacesMainContainer>div.discussionAreaContainer {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	position: relative;
+}
+
+div.workspacesMainContainer>div.discussionAreaContainer.sidebarEmbed:global(div.ant-tabs-nav) {
+	display: none;
+}
+
+div.messagesContainer {
+	flex: auto;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	margin-bottom: 0rem;
+	overflow-y: auto;
+	padding-left: 1.5rem;
+	padding-right: 1.5rem;
+	padding-top: 0.5rem;
+	padding-bottom: .3rem;
+}
+
+div.messageBottomEditor {
+	padding: .6rem 1.5rem;
+	/* background-color: #F0F2F5; */
+	border-top: 1px solid #f2f2f2;
+	box-shadow: 0px -1px 4px rgb(0 0 0 / 4%);
+}
+
+div.messagesContainer.sidebarEmbed {
+	margin-top: 0.5rem;
+}
+
+.messageTimeContainer {
+	font-size: 12px;
+	line-height: 15px;
+	font-weight: 600;
+	color: #8d8d8d;
+}
+
+div.goToButton {
+	transform: rotate(90deg);
+}
+
+div.tabExtraContents {
+	display: flex;
+	align-items: center;
+	flex-direction: row-reverse;
+}
+
+div.tabExtraContents > img {
+	cursor: pointer;
+}
+
+div.tabExtraContents > button{
+	display: flex;
+	align-items: center;
+	padding: 0px 0px;
+	width: fit-content;
+	height: fit-content;
+	margin-left: 20px;
+}
+
+div.toolBar {
+	margin-top: 13px;
+}
+div.logout {
+	margin-bottom: 10px;
+}

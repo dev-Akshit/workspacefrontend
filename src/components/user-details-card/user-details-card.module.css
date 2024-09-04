@@ -1,0 +1,98 @@
+div.userDetailsCard {
+	min-height: 130px;
+	max-height: fit-content;
+	border-radius: 10px;
+	background-color: white;
+}
+
+div.userDetailsCardHeader {
+	width: 100%;
+	height: 60px;
+	border-radius: 10px 10px 0px 0px;
+}
+
+div.userAvatarBox {
+	top: 20px;
+	left: 10px;
+	width: fit-content;
+	height: fit-content;
+	border-radius: 50%;
+	position: relative;
+	border: 5px solid #fff;
+}
+
+div.userDetailsCardBody {
+	width: 100%;
+	padding: 25px 15px 10px 15px;
+}
+
+p.detailsCardName {
+	font-size: 17px;
+	color: #4D4F5C;
+	font-weight: 700;
+	margin-bottom: 0px;
+}
+
+p.detailsCardEmail {
+	color: #43425D;
+	margin-bottom: 0px;
+}
+
+div.userDetailsCardFooter {
+	text-align: right;
+	padding: 0px 15px 15px 0px;
+}
+
+small.dmDecription{
+	opacity: .5;
+	user-select: none;
+}
+
+div.userDetailsCardFooter img {
+	width: 18px;
+	margin-left: 8px;
+	opacity: .7;
+	cursor: pointer;
+}
+
+div.userDetailsCardFooter img:hover {
+	opacity: 1;
+}
+
+/* div.userDetailsCard {
+	display: flex;
+}
+
+div.userDetailsCard > div.userAvatarContainer {
+	margin-right: 0.75rem;
+	display: flex;
+	align-items: center;
+}
+
+div.userDetailsCard > div.userDetailsContainer {
+	display: flex;
+	line-height: 1.3;
+	flex-direction: column;
+	justify-content: center;
+}
+
+div.userDetailsCard > div.userDetailsContainer > div:nth-child(1) > span {
+	font-size: 17px;
+	color: #4D4F5C;
+	font-weight: 700;
+	font-family: 'Mulish', sans-serif;
+	word-break: break-all;
+}
+
+div.userDetailsCard > div.userDetailsContainer > div:nth-child(2) > span:nth-child(1) {
+	margin-right: 0.5rem;
+}
+
+div.userDetailsCard > div.userDetailsContainer > div:nth-child(2) > span:nth-child(1) {
+	font-size: 14px;
+	color: #43425D;
+	font-weight: 400;
+	opacity: .5;
+	font-family: 'Mulish', sans-serif;
+	word-break: break-all;
+} */

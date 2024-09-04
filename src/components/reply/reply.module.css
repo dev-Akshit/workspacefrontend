@@ -1,0 +1,58 @@
+div.replyWrapper {
+	display: flex;
+	margin-bottom: 0.9rem;
+}
+
+div.replyWrapper > div.avatarContainer {
+	margin-right: 0.75rem;
+	margin-top: 0.25rem;
+}
+
+div.replyWrapper > div.reply {
+	flex: auto;
+	padding-top: 0.1rem;
+}
+
+div.reply > div.replyContent > span:first-child,
+div.reply > div.replyContent > span:nth-child(2) {
+	font-weight: 700;
+}
+
+div.reply > div.replyContent > span:first-child:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+div.reply > div.replyContent > pre {
+	font-family: 'Mulish', sans-serif;
+	display: inline;
+	white-space: pre-wrap;
+	font-weight: 600;
+	overflow-wrap: anywhere;
+}
+
+div.reply > div.replyContent > span:last-child, span.replyTimestamp {
+	font-size: 12px;
+	line-height: 15px;
+	font-weight: 600;
+	color: #8d8d8d;
+	/* margin-left: 0.75rem; */
+}
+
+div.messageActionContainer{
+	display: inline-block;
+	margin-left: 10px;
+	font-size: 12px;
+	line-height: 15px;
+	font-weight: 600;
+	color: #8d8d8d;
+}
+
+div.messageActionContainer span{
+	margin-right: 5px;
+}
+span.mentionInMessage {
+	color: #de6834 !important;
+	padding: 1px;
+	background: #FFEEE5;
+}

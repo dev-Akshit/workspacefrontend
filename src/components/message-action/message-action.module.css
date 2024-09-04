@@ -1,0 +1,5 @@
+div.menuItemDiv {
+	gap: 6px;
+	display: flex;
+	align-items: center;
+}

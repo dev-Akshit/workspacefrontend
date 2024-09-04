@@ -1,0 +1,28 @@
+.mainBody > {
+	display: flex;
+	flex-direction: column;
+	gap: 0px;
+}
+
+.formBody{
+	margin: auto;
+	max-width: 400px;
+	border-radius: 10px;
+	box-shadow: 0 0.5rem 1rem rgba(0,0,0, 0.15);
+	padding: 10px 30px;
+	padding-top: 15px;
+	background-color: white;
+}
+
+.actionButton {
+	padding-top: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+
+.signupButton {
+	width: 9rem;
+}
