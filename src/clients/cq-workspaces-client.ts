@@ -24,6 +24,7 @@ interface ClientEvents {
 	'reply-received': (data: any) => void
 	'new-user-added': (data: any) => void
 	'channel-user-change': (data: any) => void
+	'removeUserByChannelAdmin-received': (data: any) => void
 	'isResolved-received': (data: any) => void
 	'userJoinedChannel-received': (data: any) => void
 	'userLeftChannel-received': (data: any) => void
@@ -33,6 +34,7 @@ interface ClientEvents {
 	'unLikeMessage-received': (data: any) => void
 	'addPin-received': (data: any) => void
 	'removePin-received': (data: any) => void
+	'deleteChannel-received': (data: any) => void
 }
 
 interface SocketEmitEvents {
@@ -40,6 +42,7 @@ interface SocketEmitEvents {
 	leaveWorkspace: (data: any) => void
 	joinChannel: (data: any, data2: any) => void
 	leaveChannel: (data: any) => void
+	deleteChannel: (data: any) => void
 	message: (data: any) => void
 	reply: (data: any) => void
 	notificationRead: (data: any) => void
@@ -61,11 +64,13 @@ interface SocketListenEvents {
 	reply: (data: any) => void
 	newUserAdded: (data: any) => void
 	channelUserChange: (data: any) => void
+	removeUserByChannelAdmin: (data: any) => void
 	isResolved: (data: any) => void
 	isDiscussionRequired: (data: any) => void
 	updateNotifyUsersListOfMessage: (data: any) => void
 	userJoinedChannel: (data: any) => void
 	userLeftChannel: (data: any) => void
+	deleteChannel: (data: any) => void
 	newMessage: (data: any) => void
 	likeMessage: (data: any) => void
 	unLikeMessage: (data: any) => void
@@ -176,6 +181,10 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		this.emit('channel-user-change', data);
 	};
 
+	private _onRemoveUserByChannelAdmin = (data: any): void => {
+		this.emit('removeUserByChannelAdmin-received', data);
+	};
+
 	private _onResolvedChange = (data: any): void => {
 		this.emit('isResolved-received', data);
 	};
@@ -186,6 +195,10 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 
 	private _onUserLeftChannel = (data: any): void => {
 		this.emit('userLeftChannel-received', data);
+	};
+
+	private _ondeleteChannel = (data: any): void => {
+		this.emit('deleteChannel-received', data);
 	};
 
 	private _onDiscussionChange = (data: any): void => {
@@ -222,6 +235,7 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		_socket.on('reply', this._onReplyReceived);
 		_socket.on('newUserAdded', this._onNewUserAdded);
 		_socket.on('channelUserChange', this._onInvitedUserAdded);
+		_socket.on('removeUserByChannelAdmin', this._onRemoveUserByChannelAdmin);
 		_socket.on('isResolved', this._onResolvedChange);
 		_socket.on('isDiscussionRequired', this._onDiscussionChange);
 		_socket.on('updateNotifyUsersListOfMessage', this._onUpdateNotifyUsersListOfMessage);
@@ -229,6 +243,7 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		_socket.on('unLikeMessage', this._onUnLikeMessage);
 		_socket.on('userJoinedChannel', this._onUserJoinedChannel);
 		_socket.on('userLeftChannel', this._onUserLeftChannel);
+		_socket.on('deleteChannel', this._ondeleteChannel);
 		_socket.on('addPin', this._onAddPin);
 		_socket.on('removePin', this._onRemovePin);
 	};
@@ -243,6 +258,7 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		_socket.off('reply', this._onReplyReceived);
 		_socket.off('newUserAdded', this._onNewUserAdded);
 		_socket.off('channelUserChange', this._onNewUserAdded);
+		_socket.off('removeUserByChannelAdmin', this._onRemoveUserByChannelAdmin);
 		_socket.off('isResolved', this._onResolvedChange);
 		_socket.off('isDiscussionRequired', this._onDiscussionChange);
 		_socket.off('updateNotifyUsersListOfMessage', this._onUpdateNotifyUsersListOfMessage);
@@ -250,6 +266,7 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		_socket.off('unLikeMessage', this._onUnLikeMessage);
 		_socket.off('userJoinedChannel', this._onUserJoinedChannel);
 		_socket.off('userLeftChannel', this._onUserLeftChannel);
+		_socket.off('deleteChannel', this._ondeleteChannel);
 		_socket.off('addPin', this._onAddPin);
 		_socket.off('removePin', this._onRemovePin);
 	};
@@ -501,6 +518,35 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		this._socket.emit('leaveChannel', {
 			channelId,
 		});
+	};
+
+	deleteChannel = async (channelId: string, workspaceId: string): Promise<any> => {
+		const response = await this._workspacesAPI.post('/channel/deleteChannel', {
+			channelId, workspaceId,
+		});
+
+		if (response.data.error) {
+			throw new Error(response.data.error);
+		}
+		return response.data;
+	};
+
+	removeUserFromChannel = async (
+		args: {
+			workspaceId: string, channelId: string,
+			userIdToRemove: string,
+		},
+	): Promise<any> => {
+		const {
+			channelId, workspaceId, userIdToRemove,
+		} = args;
+		const response = await this._workspacesAPI.post('channel/removeUserFromChannel', {
+			workspaceId,
+			channelId,
+			userId: userIdToRemove,
+		});
+		if (response.data.error) throw new Error(response.data.error);
+		return response.data;
 	};
 
 	leaveChannelPermanently = async (channelId: string): Promise<void> => {

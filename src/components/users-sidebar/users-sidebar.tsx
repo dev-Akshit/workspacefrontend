@@ -3,11 +3,11 @@ import React, {
 	useState,
 } from 'react';
 import {
-	Drawer, Menu, Tooltip, Input,
+	Drawer, Menu, Tooltip, Input, Popconfirm,
 } from 'antd';
 import VirtualList from 'rc-virtual-list';
 import {
-	SendOutlined, MessageOutlined, SearchOutlined, LoadingOutlined,
+	SendOutlined, MessageOutlined, SearchOutlined, LoadingOutlined, MinusCircleOutlined,
 } from '@ant-design/icons';
 import { ReactComponent as ParticipantsIcon } from '../../assets/icons/Combined-shape-363.svg';
 import styles from './users-sidebar.module.css';
@@ -25,6 +25,7 @@ export interface UsersSidebarProps {
 	handleDMUser?: (userId: string) => Promise<void>
 	getChannelUsersList: (payload: any) => Promise<any>
 	getBatchUserIds: (batchIds: string[]) => Promise<any>
+	handleRemoveUserFromChannel: (userId: string) => Promise<any>
 }
 
 export const UsersSidebar: React.FunctionComponent<UsersSidebarProps> = (props) => {
@@ -32,6 +33,7 @@ export const UsersSidebar: React.FunctionComponent<UsersSidebarProps> = (props) 
 		sessionData,
 		channelUsersData, currentChannel, currentWorkspaceBatches, usersSidebarVisible,
 		setUserSidebarVisible, handleDMUser, getChannelUsersList, getBatchUserIds,
+		handleRemoveUserFromChannel,
 	} = props;
 
 	const rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
@@ -264,16 +266,30 @@ export const UsersSidebar: React.FunctionComponent<UsersSidebarProps> = (props) 
 												<Tooltip placement="left" destroyTooltipOnHide={true || undefined} title={sessionData.role !== '1' && item?.email}>
 													<span>{item.displayname}</span>
 												</Tooltip>
-												{handleDMUser && item._id !== sessionData?.userId ? (
-													<Tooltip placement="left" title={item.email}>
-														<MessageOutlined
-															onClick={() => {
-																handleDMUser(item._id);
-																setUserSidebarVisible(false);
-															}}
-														/>
-													</Tooltip>
-												) : ''}
+												<div className={styles.sideBarUserItemOptions}>
+													{handleDMUser && item._id !== sessionData?.userId ? (
+														<Tooltip placement="left" title={item.email}>
+															<MessageOutlined
+																onClick={() => {
+																	handleDMUser(item._id);
+																	setUserSidebarVisible(false);
+																}}
+															/>
+														</Tooltip>
+													) : ''}
+													{sessionData?.userId === currentChannel?.created_by
+													&& sessionData?.userId !== item._id ? (
+														<Popconfirm
+															title={`Are you sure to remove ${item.displayname}?`}
+															onConfirm={() => { handleRemoveUserFromChannel(item._id); }}
+															okText="Remove"
+															cancelText="Cancel"
+															placement="left"
+														>
+															<MinusCircleOutlined style={{ cursor: 'pointer' }} />
+														</Popconfirm>
+													) : '' }
+												</div>
 											</div>
 										</Menu.Item>
 									)}
@@ -296,16 +312,30 @@ export const UsersSidebar: React.FunctionComponent<UsersSidebarProps> = (props) 
 											<Tooltip placement="left" destroyTooltipOnHide={true || undefined} title={sessionData.role !== '1' && item?.email}>
 												<span>{item.displayname}</span>
 											</Tooltip>
-											{handleDMUser && item._id !== sessionData?.userId ? (
-												<Tooltip placement="left" title={item.email}>
-													<MessageOutlined
-														onClick={() => {
-															handleDMUser(item._id);
-															setUserSidebarVisible(false);
-														}}
-													/>
-												</Tooltip>
-											) : ''}
+											<div className={styles.sideBarUserItemOptions}>
+												{handleDMUser && item._id !== sessionData?.userId ? (
+													<Tooltip placement="left" title={item.email}>
+														<MessageOutlined
+															onClick={() => {
+																handleDMUser(item._id);
+																setUserSidebarVisible(false);
+															}}
+														/>
+													</Tooltip>
+												) : ''}
+												{sessionData?.userId === currentChannel?.created_by
+													&& sessionData?.userId !== item._id ? (
+													<Popconfirm
+														title={`Are you sure to remove ${item.displayname}?`}
+														onConfirm={() => { handleRemoveUserFromChannel(item._id); }}
+														okText="Remove"
+														cancelText="Cancel"
+														placement="left"
+													>
+														<MinusCircleOutlined style={{ cursor: 'pointer' }} />
+													</Popconfirm>
+													) : '' }
+											</div>
 										</div>
 									</Menu.Item>
 								)}

@@ -60,3 +60,8 @@ div.sideBarUserItem {
 	right: 0px;
 	margin-right: 3px;
 }
+
+.sideBarUserItemOptions{
+	display: flex;
+    justify-content: space-between;
+}

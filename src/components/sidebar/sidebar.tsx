@@ -40,11 +40,13 @@ interface SidebarProps {
 	setCurrentWorkspace: (workspaceId: string) => Promise<boolean>
 	setCurrentChannel: (channelId: string) => Promise<boolean>
 	addUserInChannel: (userEmail: string) => Promise<void>
+	removeUserFromChannel: (userIdToRemove: string) => Promise<void>
 	addBatchInChannel: (batchId: string) => Promise<void>
 	handleDMUser?: (userId: string) => Promise<void>
 	getChannelUsersList: (payload: any) => Promise<any>
 	getBatchUserIds: (batchIds: string[]) => Promise<any>
 	leaveChannel: (channelId: string) => Promise<boolean>
+	deleteChannel: (channelId: string) => Promise<void>
 }
 
 export const Sidebar: React.FC<SidebarProps> = (props) => {
@@ -58,6 +60,7 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 		updateChannelName,
 		updateChannelPermission,
 		handleDMUser,
+		removeUserFromChannel,
 		getChannelUsersList,
 		getBatchUserIds,
 		usersSidebarVisible,
@@ -66,6 +69,7 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 		isChannelPermissionModalVisible,
 		createWorkspace,
 		leaveChannel,
+		deleteChannel,
 	} = props;
 
 	const [channelName, setChannelName] = useState<string>('');
@@ -86,6 +90,7 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 	const [isAddUserModalVisible, setIsAddUserModalVisible] = useState(false);
 	const [isEditChannelModalVisible, setIsEditChannelModalVisible] = useState(false);
 	const [isAddBatchModalVisible, setIsAddBatchModalVisible] = useState(false);
+	const [isDeleteChannelModalVisible, setIsDeleteChannelModalVisible] = useState(false);
 
 	const workspaceNameInputRef = useRef<Input | null>(null);
 
@@ -218,6 +223,31 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 		}
 	}, [userEmail, addUserInChannel, channelUsersData]);
 
+	const handleRemoveUserFromChannel = useCallback(async (userIdToRemove: string) => {
+		try {
+			const idx = currentChannel?.user_ids?.indexOf(userIdToRemove);
+			if (idx < 0) {
+				message.error('User not found');
+				return;
+			}
+			const response = await removeUserFromChannel(userIdToRemove);
+			message.success('User removed successfully');
+		} catch (error) {
+			message.error('User not removed');
+		}
+	}, [removeUserFromChannel, currentChannel]);
+
+	const handleDeleteChannel = useCallback(async () => {
+		setIsDeleteChannelModalVisible(false);
+		try {
+			const channelId = currentChannel.id;
+			const data:any = await deleteChannel(channelId);
+			message.success(data?.msg || 'Channel Deleted Successfully');
+		} catch (error:any) {
+			message.error(error.message || 'Channel deletion not possible at this time');
+		}
+	}, [deleteChannel, currentChannel]);
+
 	const resetUserEmailInput = useCallback(() => {
 		setUserEmail('');
 		setIsAddUserModalVisible(false);
@@ -325,6 +355,9 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 						<Menu.Item key="addUser" onClick={() => setIsAddUserModalVisible(true)}>
 							Add User
 						</Menu.Item>
+						<Menu.Item key="disable" onClick={() => setIsDeleteChannelModalVisible(true)}>
+							Delete
+						</Menu.Item>
 					</>
 				)}
 
@@ -349,6 +382,7 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 				handleDMUser={handleDMUser}
 				getChannelUsersList={getChannelUsersList}
 				getBatchUserIds={getBatchUserIds}
+				handleRemoveUserFromChannel={handleRemoveUserFromChannel}
 			/>
 			<div className={styles.sidebarMain}>
 				{
@@ -493,6 +527,19 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 																	onChange={(e) => setUserEmail(e.target.value)}
 																/>
 															</Form.Item>
+														</Modal>
+
+														<Modal
+															title="DELETE CHANNEL"
+															visible={isDeleteChannelModalVisible}
+															onOk={handleDeleteChannel}
+															onCancel={() => { setIsDeleteChannelModalVisible(false); }}
+															width="300px"
+														>
+															<span>
+																Are you sure to Delete the channel #
+																{currentChannel?.name}
+															</span>
 														</Modal>
 
 														<Modal

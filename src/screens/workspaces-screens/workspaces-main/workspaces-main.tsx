@@ -63,6 +63,7 @@ const appStoreSelector = (state: AppState) => ({
 	updateChannelPermission: state.updateChannelPermission,
 	getChannels: state.getChannels,
 	addUserInChannel: state.addUserInChannel,
+	removeUserFromChannel: state.removeUserFromChannel,
 	addBatchInChannel: state.addBatchInChannel,
 	setCurrentChannel: state.setCurrentChannel,
 	updateChannelLastSeen: state.updateChannelLastSeen,
@@ -91,6 +92,7 @@ const appStoreSelector = (state: AppState) => ({
 	getBatchUserIds: state.getBatchUserIds,
 	createWorkspace: state.createWorkspace,
 	leaveChannel: state.leaveChannel,
+	deleteChannel: state.deleteChannel,
 	logout: state.logout,
 	setProfile: state.setProfile,
 	getProfileUploadUrl: state.getProfileUploadUrl,
@@ -156,6 +158,7 @@ export const WorkspacesMain: React.FunctionComponent<WorkspacesMainProps> = (pro
 		unPinMessage,
 		deleteReply,
 		addUserInChannel,
+		removeUserFromChannel,
 		addBatchInChannel,
 		uploadAttachment,
 		getUserActivity,
@@ -164,6 +167,7 @@ export const WorkspacesMain: React.FunctionComponent<WorkspacesMainProps> = (pro
 		getBatchUserIds,
 		createWorkspace,
 		leaveChannel,
+		deleteChannel,
 		logout,
 		setProfile,
 		getProfileUploadUrl,
@@ -590,6 +594,7 @@ export const WorkspacesMain: React.FunctionComponent<WorkspacesMainProps> = (pro
 								updateChannelPermission={updateChannelPermission}
 								setCurrentChannel={handleChangeChannel}
 								addUserInChannel={addUserInChannel}
+								removeUserFromChannel={removeUserFromChannel}
 								addBatchInChannel={addBatchInChannel}
 								channelUsersData={channelUsersData}
 								handleDMUser={handleDMUser}
@@ -601,6 +606,7 @@ export const WorkspacesMain: React.FunctionComponent<WorkspacesMainProps> = (pro
 								setIsChannelPermissionModalVisible={setIsChannelPermissionModalVisible}
 								createWorkspace={createWorkspace}
 								leaveChannel={handleChannelLeave}
+								deleteChannel={deleteChannel}
 							/>
 						</div>
 					)

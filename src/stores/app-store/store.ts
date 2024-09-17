@@ -63,9 +63,11 @@ export interface AppState {
 	createChannel: (
 		name: string, type?: ChannelKind, userIdsToAdd?: string[]
 	) => Promise<void | string>
+	deleteChannel: (channelId: string) => Promise<void>
 	updateChannelName: (name: string) => Promise<void>
 	updateChannelPermission: (channelWritePermissionType: string) => Promise<void>
 	addUserInChannel: (userEmail: string) => Promise<void>
+	removeUserFromChannel: (userIdToRemove: string) => Promise<any>
 	addBatchInChannel: (batchId: string) => Promise<void>
 
 	getMessages: (
@@ -198,6 +200,7 @@ const initialState: AppState = {
 	updateChannelName: async () => { },
 	updateChannelPermission: async () => { },
 	addUserInChannel: async () => { },
+	removeUserFromChannel: async () => { },
 	addBatchInChannel: async () => { },
 
 	getMessages: async () => '',
@@ -229,6 +232,7 @@ const initialState: AppState = {
 	leaveChannel: async (id: string) => false,
 	getProfileUploadUrl: () => '',
 	setProfile: async () => {},
+	deleteChannel: async () => {},
 };
 
 export function createAppStore(cqWorkspacesClient: CQWorkspacesClient): UseStore<AppState> {
@@ -239,6 +243,12 @@ export function createAppStore(cqWorkspacesClient: CQWorkspacesClient): UseStore
 			const workspaces = data.sort(
 				(w1: any, w2: any) => w1.name.localeCompare(w2.name),
 			);
+
+			if (workspaces?.length === 0) {
+				const { currentWorkspace, currentChannel } = get();
+				console.log(currentChannel, currentWorkspace);
+				set({ activeWorkspaceId: '', currentWorkspace: '', currentChannel: '' });
+			}
 
 			set({
 				workspaces,
@@ -693,6 +703,32 @@ export function createAppStore(cqWorkspacesClient: CQWorkspacesClient): UseStore
 				// eslint-disable-next-line no-param-reassign
 				state.currentChannel = newChannel;
 			});
+		});
+
+		cqWorkspacesClient.on('deleteChannel-received', async (data: any) => {
+			logger.log('Channel is deleted by channel admin');
+			const { currentWorkspace } = get();
+			if (currentWorkspace.id === data.workspaceId) {
+				await get().getWorkspaces();
+			}
+		});
+
+		cqWorkspacesClient.on('removeUserByChannelAdmin-received', async (data: any) => {
+			logger.log('remove user by channel admin', data);
+			const { currentWorkspace, sessionData } = get();
+			const { currentChannel } = get();
+			const newChannel = { ...currentChannel };
+			if (newChannel.user_ids && sessionData.userId === currentWorkspace.created_by) {
+				newChannel.user_ids = newChannel.user_ids.filter((id: string) => data.userIds !== id);
+				set((state) => {
+					// eslint-disable-next-line no-param-reassign
+					state.currentChannel = newChannel;
+				});
+				return;
+			}
+			if (currentWorkspace.id === data.workspaceId) {
+				await get().getWorkspaces();
+			}
 		});
 
 		cqWorkspacesClient.on('isResolved-received', async (data: any) => {
@@ -1483,6 +1519,39 @@ export function createAppStore(cqWorkspacesClient: CQWorkspacesClient): UseStore
 					logger.error(e);
 
 					throw new Error('Error while getting user data.');
+				}
+			},
+
+			removeUserFromChannel: async (userIdToRemove: string) => {
+				try {
+					const {
+						currentChannel, currentWorkspace,
+					} = get();
+					if (!userIdToRemove) {
+						throw new Error('Please provide user to remove from channel');
+					}
+					const data = await cqWorkspacesClient.removeUserFromChannel({
+						userIdToRemove, channelId: currentChannel.id, workspaceId: currentWorkspace.id,
+					});
+					logger.log(data);
+					return data;
+				} catch (error) {
+					logger.error(error);
+					throw new Error('Error in remove user from channel');
+				}
+			},
+
+			deleteChannel: async (channelId: string) => {
+				const { currentWorkspace } = get();
+				const workspaceId = currentWorkspace.id;
+				try {
+					const response = await cqWorkspacesClient.deleteChannel(
+						channelId, workspaceId,
+					);
+					return response;
+				} catch (e: any) {
+					logger.error(e);
+					throw new Error(e?.message || 'Error in delete channel');
 				}
 			},
 
