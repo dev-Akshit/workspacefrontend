@@ -1014,6 +1014,14 @@ export const WorkspacesMain: React.FunctionComponent<WorkspacesMainProps> = (pro
 																									return <Badge style={{ backgroundColor: '#69c0ff' }} count="You have been mentioned in a reply in discussion." />;
 																								}
 
+																								if (+a.type === UserActivityKind.Resolved) {
+																									return <Badge style={{ backgroundColor: '#85BC87' }} count="Query has been resolved in discussion." />;
+																								}
+
+																								if (+a.type === UserActivityKind.ToDiscuss) {
+																									return <Badge style={{ backgroundColor: '#FDA373' }} count="The query needs to be addressed in the discussion." />;
+																								}
+
 																								return null;
 																							})()
 																						}

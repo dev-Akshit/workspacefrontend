@@ -58,6 +58,8 @@ export enum UserActivityKind {
 	AddedReply = 6,
 	Mentioned = 7,
 	MentionedInReply = 8,
+	Resolved = 9,
+	ToDiscuss = 10,
 }
 
 export enum queryParamsMessageType {
