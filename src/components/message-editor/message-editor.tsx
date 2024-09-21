@@ -3,10 +3,11 @@ import React, {
 } from 'react';
 import {
 	Button, Upload, Tooltip, message,
+	Popover,
 } from 'antd';
 import { MentionsInput, Mention, MentionItem } from 'react-mentions';
 
-import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
+import EmojiPicker, { EmojiClickData, EmojiStyle } from 'emoji-picker-react';
 import lib, {
 	CloseOutlined,
 	LoadingOutlined,
@@ -98,7 +99,6 @@ export const MessageEditor: React.FC<MessageEditorProps> = (props) => {
 	const messageInputRef = useRef<HTMLTextAreaElement>(null);
 
 	const [mentionSuggestionBoxElement, setMentionSuggestionBoxElement] = useState<Element>();
-	const [isEmojiPickerModalVisible, setIsEmojiPickerModalVisible] = useState<boolean>(false);
 	const mentionSuggestionsRef = useCallback((node: HTMLDivElement) => {
 		if (node) {
 			setMentionSuggestionBoxElement(node);
@@ -197,7 +197,6 @@ export const MessageEditor: React.FC<MessageEditorProps> = (props) => {
 			});
 
 			messageInputRef.current?.focus();
-			setIsEmojiPickerModalVisible(false);
 		}
 	}, [editMessageObj, editReplyObj]);
 
@@ -218,12 +217,6 @@ export const MessageEditor: React.FC<MessageEditorProps> = (props) => {
 				attachments: messageInputValue.attachments,
 			});
 		}, [messageInputValue],
-	);
-
-	const handleIsEmojiPickerModalVisible = useCallback(
-		() => {
-			setIsEmojiPickerModalVisible(!isEmojiPickerModalVisible);
-		}, [isEmojiPickerModalVisible],
 	);
 
 	const handleAddEmojiToInput = useCallback(
@@ -255,7 +248,6 @@ export const MessageEditor: React.FC<MessageEditorProps> = (props) => {
 			setIsPreview(false);
 			setUploadingImgSrc('');
 			setMessageInputValue(defaultMessageInputValue);
-			setIsEmojiPickerModalVisible(false);
 		}
 	}, [messageInputValue, createMessage, editMessage, editMessageObj, editReplyObj,
 		handleEditReply]);
@@ -337,6 +329,31 @@ export const MessageEditor: React.FC<MessageEditorProps> = (props) => {
 	useEffect(() => {
 		setMessageInputValue(defaultMessageInputValue);
 	}, [activeChannelId]);
+
+	const emojiContent = (
+		<div
+			className={styles.emojiPickerContainer}
+		>
+			<div
+				className={styles.emojiPicker}
+				tabIndex={0}
+				role="button"
+				onKeyUp={(ev) => {}}
+				onClick={(event) => {
+					event.stopPropagation();
+				}}
+			>
+				<EmojiPicker
+					onEmojiClick={(emojiObject) => {
+						handleAddEmojiToInput(emojiObject);
+					}}
+					emojiStyle={EmojiStyle.GOOGLE}
+					skinTonesDisabled
+					autoFocusSearch={false}
+				/>
+			</div>
+		</div>
+	);
 
 	return (
 		<div className={`${styles.messageEditorWrapper} ${isReplyInput ? styles.replyEditorWrapper : ''} ${isSidebarEmbed ? styles.sidebarEmbed : ''}`}>
@@ -594,48 +611,32 @@ export const MessageEditor: React.FC<MessageEditorProps> = (props) => {
 							)
 						}
 					</div>
-					<div className={styles.addEmojiContainer}>
-						{
-							messageInputValue.attachments.length ? '' : (
+					{
+						(messageInputValue.attachments.length || isReplyInput) ? '' : (
+							<div className={styles.addEmojiContainer}>
 								<Tooltip
-									title="Add Emoji"
+									title={isDisabled ? '' : 'Add Emoji'}
 								>
-									<Button
-										type="text"
-										shape="circle"
-										icon={(
-											<SmileOutlined
-												className={styles.addEmoji}
-											/>
-										)}
-										onClick={handleIsEmojiPickerModalVisible}
-									/>
+									<Popover
+											content={isDisabled ? '' : emojiContent}
+											trigger="onclick"
+									>
+										<Button
+											type="text"
+											style={{ opacity: isDisabled ? '0.5' : '1' }}
+											shape="circle"
+											disabled={isDisabled}
+											icon={(
+												<SmileOutlined
+												style={{ fontSize: '22px', color: '#00000070' }}
+												/>
+											)}
+										/>
+									</Popover>
 								</Tooltip>
-							)
-						}
-					</div>
-					{isEmojiPickerModalVisible
-					&& (
-						<div
-							className={styles.emojiPickerContainer}
-						>
-							<div
-								className={styles.emojiPicker}
-								tabIndex={0}
-								role="button"
-								onKeyUp={(ev) => {}}
-								onClick={(event) => {
-									event.stopPropagation();
-								}}
-							>
-								<EmojiPicker
-									onEmojiClick={(emojiObject) => {
-										handleAddEmojiToInput(emojiObject);
-									}}
-								/>
 							</div>
-						</div>
-					)}
+						)
+					}
 				</div>
 				<div className={styles.sendButtonContainer}>
 					<Button

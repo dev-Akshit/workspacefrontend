@@ -53,7 +53,7 @@ div.message > div.messageContent > span:first-child:hover {
 }
 
 div.message > div.messageContent > pre {
-	font-family: 'Mulish', sans-serif;
+	font-family: 'Mulish', 'Noto Color Emoji', sans-serif;
 	display: inline;
 	white-space: pre-wrap;
 	font-weight: 600;

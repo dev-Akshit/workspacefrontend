@@ -24,7 +24,7 @@ div.reply > div.replyContent > span:first-child:hover {
 }
 
 div.reply > div.replyContent > pre {
-	font-family: 'Mulish', sans-serif;
+	font-family: 'Mulish', 'Noto Color Emoji', sans-serif;
 	display: inline;
 	white-space: pre-wrap;
 	font-weight: 600;
