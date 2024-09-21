@@ -12,6 +12,7 @@ import {
 import { ReactComponent as ParticipantsIcon } from '../../assets/icons/Combined-shape-363.svg';
 import styles from './users-sidebar.module.css';
 import { logger } from '../../libs/utils';
+import { UserAvatar } from '../avatar';
 
 const { SubMenu } = Menu;
 
@@ -263,9 +264,18 @@ export const UsersSidebar: React.FunctionComponent<UsersSidebarProps> = (props) 
 									{(item: any) => item._id && (
 										<Menu.Item key={item._id} disabled>
 											<div className={styles.sideBarUserItem}>
-												<Tooltip placement="left" destroyTooltipOnHide={true || undefined} title={sessionData.role !== '1' && item?.email}>
-													<span>{item.displayname}</span>
-												</Tooltip>
+												<div className={styles.sideBarUserItemData}>
+													<UserAvatar
+														id={item._id ?? ''}
+														src={item?.profile_pic ? item?.profile_pic : ''}
+														displayName={item?.displayname ?? ''}
+														size={20}
+														style={{ marginRight: '5px' }}
+													/>
+													<Tooltip placement="left" destroyTooltipOnHide={true || undefined} title={sessionData.role !== '1' && item?.email}>
+														<span>{item.displayname}</span>
+													</Tooltip>
+												</div>
 												<div className={styles.sideBarUserItemOptions}>
 													{handleDMUser && item._id !== sessionData?.userId ? (
 														<Tooltip placement="left" title={item.email}>
@@ -309,9 +319,18 @@ export const UsersSidebar: React.FunctionComponent<UsersSidebarProps> = (props) 
 								{(item: any) => item._id && (
 									<Menu.Item key={item._id} disabled>
 										<div className={styles.sideBarUserItem}>
-											<Tooltip placement="left" destroyTooltipOnHide={true || undefined} title={sessionData.role !== '1' && item?.email}>
-												<span>{item.displayname}</span>
-											</Tooltip>
+											<div className={styles.sideBarUserItemData}>
+												<UserAvatar
+													id={item._id ?? ''}
+													src={item?.profile_pic ? item?.profile_pic : ''}
+													displayName={item?.displayname ?? ''}
+													size={20}
+													style={{ marginRight: '5px' }}
+												/>
+												<Tooltip placement="left" destroyTooltipOnHide={true || undefined} title={sessionData.role !== '1' && item?.email}>
+													<span>{item.displayname}</span>
+												</Tooltip>
+											</div>
 											<div className={styles.sideBarUserItemOptions}>
 												{handleDMUser && item._id !== sessionData?.userId ? (
 													<Tooltip placement="left" title={item.email}>

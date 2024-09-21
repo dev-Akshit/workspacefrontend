@@ -327,7 +327,7 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>((props, fo
 				) : ''}
 				<UserAvatar
 					id={message.created_by?._id ?? ''}
-					src={sessionData?.userId === message.created_by?._id ? sessionData?.profilePic : ''}
+					src={channelUsers[message.created_by?._id]?.profilePic ? channelUsers[message.created_by?._id]?.profilePic : ''}
 					displayName={message.created_by?.displayname ?? ''}
 					size={isSidebarEmbed ? 35 : 45}
 				/>

@@ -34,6 +34,12 @@ div.sideBarUserItem {
 	justify-content: space-between;
 }
 
+div.sideBarUserItemData {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 .userSidebarTitleContainer {
 	font-size: 0.9rem;
 	color: #DE6834;

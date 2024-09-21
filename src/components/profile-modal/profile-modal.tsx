@@ -188,7 +188,7 @@ export const ProfileModal = (props: ProfileModalProps) => {
                                 name="profile_pic"
                             >
                                 <Upload
-                                    accept=".jpeg, .png, .gif"
+                                    accept=".jpeg, .png, .gif, .jpg"
                                     beforeUpload={beforeUpload}
                                     action={profileUploadURL}
                                     withCredentials
