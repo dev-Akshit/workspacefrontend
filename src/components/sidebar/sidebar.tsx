@@ -5,6 +5,7 @@ import React, {
 import {
 	CaretDownFilled, MailOutlined, EditOutlined, CaretUpFilled, SettingOutlined, UserOutlined,
 	UpOutlined, DownOutlined, DashOutlined, UserAddOutlined, UsergroupAddOutlined, AlignRightOutlined,
+	CopyOutlined,
 } from '@ant-design/icons';
 import {
 	Button, Input, Popconfirm, message, Select, Tooltip, Dropdown, Menu, Space, Badge, Modal, Form,
@@ -47,6 +48,8 @@ interface SidebarProps {
 	getBatchUserIds: (batchIds: string[]) => Promise<any>
 	leaveChannel: (channelId: string) => Promise<boolean>
 	deleteChannel: (channelId: string) => Promise<void>
+	copyChannelInviteLink: () => Promise<void>
+	editChannelInviteLink: (inviteLinkSuffix: string) => Promise<void>
 }
 
 export const Sidebar: React.FC<SidebarProps> = (props) => {
@@ -70,6 +73,8 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 		createWorkspace,
 		leaveChannel,
 		deleteChannel,
+		copyChannelInviteLink,
+		editChannelInviteLink,
 	} = props;
 
 	const [channelName, setChannelName] = useState<string>('');
@@ -85,12 +90,17 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 	const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
 	const [isRequesting, setIsRequesting] = useState<boolean>(false);
 	const [executing, setExecuting] = useState<boolean>(false);
+	const [inviteLinkSuffix,
+		setInviteLinkSuffix] = useState<string>(currentChannel?.inviteLinkSuffix || '');
+	const [inviteLinkUrl,
+		setInviteLinkUrl] = useState<string>('');
 
 	const [iscreateChannelModalVisible, setIsCreateChannelModalVisible] = useState(false);
 	const [isAddUserModalVisible, setIsAddUserModalVisible] = useState(false);
 	const [isEditChannelModalVisible, setIsEditChannelModalVisible] = useState(false);
 	const [isAddBatchModalVisible, setIsAddBatchModalVisible] = useState(false);
 	const [isDeleteChannelModalVisible, setIsDeleteChannelModalVisible] = useState(false);
+	const [isEditInviteLinkInputVisible, setIsEditInviteLinkInputVisible] = useState(false);
 
 	const workspaceNameInputRef = useRef<Input | null>(null);
 
@@ -183,6 +193,13 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 	}, [currentChannel]);
 
 	useEffect(() => {
+		setInviteLinkUrl(currentChannel?.invite_link || 'Please edit to create a new invite link of Channel');
+		if (currentChannel?.invite_link) {
+			const suffix = currentChannel.invite_link.split('/').findLast((element: string) => true);
+			setInviteLinkSuffix(suffix);
+		} else {
+			setInviteLinkSuffix('');
+		}
 		setUpdateChannelName(currentChannel?.name);
 	}, [currentChannel]);
 
@@ -298,6 +315,7 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 	}, []);
 	const currentChannelPermission = useCallback(() => {
 		setIsChannelPermissionModalVisible(false);
+		setIsEditInviteLinkInputVisible(false);
 		if (currentChannel && currentChannel.write_permission_type) {
 			setChannelPermission(`${currentChannel.write_permission_type}`);
 		} else {
@@ -308,6 +326,36 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 	const handleBatchSelect = useCallback((value) => {
 		setBatchId(value);
 	}, []);
+
+	const handleEditInviteLink = useCallback(async () => {
+		try {
+			const suffix = currentChannel?.invite_link?.split('/')?.findLast((element: string) => true) || '';
+			if (suffix !== inviteLinkSuffix) {
+				setIsRequesting(true);
+				if (inviteLinkSuffix.length > 100) {
+					message.error('Suffix too long');
+					return;
+				}
+				await editChannelInviteLink(inviteLinkSuffix);
+				setInviteLinkSuffix(inviteLinkSuffix);
+				message.success('Updated successfully');
+			}
+		} catch (e: any) {
+			message.error('Failed!');
+		} finally {
+			setIsEditInviteLinkInputVisible(false);
+			message.destroy('update-channel-invite-link');
+			setIsRequesting(false);
+		}
+	}, [inviteLinkSuffix, currentChannel, editChannelInviteLink]);
+
+	const showEditInviteLinkInput = useCallback(() => {
+		setIsEditInviteLinkInputVisible(true);
+		const suffix = !currentChannel.invite_link
+						? ''
+						: currentChannel.invite_link.split('/').findLast((element: string) => true);
+		setInviteLinkSuffix(suffix);
+	}, [currentChannel]);
 
 	const handleWorkspaceChange = useCallback(async (workspaceId: string) => {
 		await setCurrentWorkspace(workspaceId);
@@ -596,18 +644,14 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 														<Modal
 															title={(
 																<>
-																	CHANNEL PERMISSION
-																	<br />
-																	<small>
-																		Use permissions to customize who can do what in this channel.
-																	</small>
+																	CHANNEL SETTINGS
 																</>
 															)}
 															visible={isChannelPermissionModalVisible}
 															onOk={handleChannelPermissionChange}
 															onCancel={currentChannelPermission}
 														>
-															<p style={{ marginBottom: 0, color: '#333', fontSize: 'medium' }}>Send Messages</p>
+															<p style={{ marginBottom: 0, color: '#333', fontSize: 'medium' }}>Channel Permissions</p>
 															<span style={{ color: '#333', fontSize: 'small' }}>
 																Allows members to send message in this channel.
 															</span>
@@ -640,6 +684,69 @@ export const Sidebar: React.FC<SidebarProps> = (props) => {
 																	}))
 																}
 															/>
+															<br />
+															<br />
+															<p style={{ marginBottom: 0, color: '#333', fontSize: 'medium' }}>Channel Invite Link</p>
+															<div style={{ display: 'flex', alignContent: 'center' }}>
+																{isEditInviteLinkInputVisible
+																? (
+																<>
+																	<div style={{
+																		width: '80%', display: 'flex', justifyContent: 'space-between', paddingRight: '5px',
+																	}}
+																	>
+																		<span style={{ color: '#333', fontSize: 'small', minWidth: '40px' }}>
+																			Link:
+																		</span>
+																		<span className={styles.inviteUrlLink}>
+																			{inviteLinkUrl}
+																		</span>
+																		<Input
+																			placeholder="Custom suffix"
+																			value={inviteLinkSuffix}
+																			size="small"
+																			onChange={(e) => setInviteLinkSuffix(e.target.value)}
+																		/>
+																	</div>
+																	<div className={styles.inviteLinkButtonContainer}>
+																		<Button title="ok" type="primary" size="small" onClick={handleEditInviteLink}>Update</Button>
+																	</div>
+																</>
+																) : (
+																<>
+																	<div style={{
+																		width: '75%', display: 'flex', paddingRight: '5px',
+																	}}
+																	>
+																		<span style={{ color: '#333', fontSize: 'small', minWidth: '40px' }}>
+																			Link:
+																		</span>
+																		<span className={styles.inviteUrlLink}>
+																			{inviteLinkUrl}
+																		</span>
+																	</div>
+																	<div className={styles.inviteLinkButtonContainer}>
+																		<Tooltip
+																			title="Edit Link"
+																		>
+																			<EditOutlined
+																			onClick={showEditInviteLinkInput}
+																			/>
+																		</Tooltip>
+																		{!currentChannel.invite_link ? ''
+																			: (
+																			<Tooltip
+																				title="Copy Link"
+																			>
+																				<CopyOutlined onClick={copyChannelInviteLink} />
+																			</Tooltip>
+																			)}
+																	</div>
+																</>
+																)}
+															</div>
+															<br />
+
 														</Modal>
 														{/* <Popconfirm
 															title={(

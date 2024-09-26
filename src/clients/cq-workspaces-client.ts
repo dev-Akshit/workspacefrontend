@@ -588,6 +588,33 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		return response.data;
 	};
 
+	editInviteLink = async (
+		args: {
+			workspaceId: string, channelId: string,
+			inviteLinkSuffix: string,
+		},
+	) : Promise<any> => {
+		const { channelId, workspaceId, inviteLinkSuffix } = args;
+		const response = await this._workspacesAPI.post('/channel/editInviteLink', {
+			channelId,
+			workspaceId,
+			inviteLinkSuffix,
+		});
+		if (response.data.error) {
+			throw new Error(response.data.error);
+		}
+
+		return response.data;
+	};
+
+	customLinkJoin = async (suffix: string) => {
+		const response = await this._workspacesAPI.post('/channel/customLinkChannelJoin', { suffix });
+		if (response.data.error) {
+			throw new Error(response.data.error);
+		}
+		return response.data;
+	};
+
 	getMessages = async (
 		args: {
 			workspaceId: string, channelId: string, isPrevious: number, limit: number,

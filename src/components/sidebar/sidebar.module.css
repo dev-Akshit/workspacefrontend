@@ -286,3 +286,18 @@ div.workspaceActions > div > button > span::before {
 	font-size: 12px;
 	margin-left: 5px;
 }
+
+span.inviteUrlLink {
+	color: #333;
+	font-size: small;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+div.inviteLinkButtonContainer {
+	width: 8%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}

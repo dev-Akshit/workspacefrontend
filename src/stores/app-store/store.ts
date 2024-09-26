@@ -69,6 +69,8 @@ export interface AppState {
 	addUserInChannel: (userEmail: string) => Promise<void>
 	removeUserFromChannel: (userIdToRemove: string) => Promise<any>
 	addBatchInChannel: (batchId: string) => Promise<void>
+	editChannelInviteLink: (inviteLinkSuffix: string) => Promise<void>
+	customLinkJoin: (suffix: string) => Promise<void>
 
 	getMessages: (
 		limit: number, messageId?: string, includeLastSeen?: boolean
@@ -202,6 +204,8 @@ const initialState: AppState = {
 	addUserInChannel: async () => { },
 	removeUserFromChannel: async () => { },
 	addBatchInChannel: async () => { },
+	editChannelInviteLink: async () => { },
+	customLinkJoin: async () => { },
 
 	getMessages: async () => '',
 	getPrevMessages: async () => false,
@@ -1602,6 +1606,34 @@ export function createAppStore(cqWorkspacesClient: CQWorkspacesClient): UseStore
 					set({
 						appLoading: false,
 					});
+				}
+			},
+
+			editChannelInviteLink: async (inviteLinkSuffix: string) => {
+				try {
+					const {
+						currentChannel, currentWorkspace,
+					} = get();
+					const response = await cqWorkspacesClient.editInviteLink({
+						inviteLinkSuffix, channelId: currentChannel.id, workspaceId: currentWorkspace.id,
+					});
+					logger.log(response);
+					set(() => ({
+						currentChannel: { ...currentChannel, invite_link: response?.inviteLink },
+					}));
+					return response;
+				} catch (error) {
+					logger.error(error);
+					throw new Error('Error in edit channel invite link');
+				}
+			},
+
+			customLinkJoin: async (suffix: string) => {
+				try {
+					const response = await cqWorkspacesClient.customLinkJoin(suffix);
+					logger.log(response);
+				} catch (error) {
+					logger.error(error);
 				}
 			},
 

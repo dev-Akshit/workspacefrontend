@@ -67,6 +67,7 @@ const appStoreSelector = (state: AppState) => ({
 	addBatchInChannel: state.addBatchInChannel,
 	setCurrentChannel: state.setCurrentChannel,
 	updateChannelLastSeen: state.updateChannelLastSeen,
+	editChannelInviteLink: state.editChannelInviteLink,
 
 	getMessages: state.getMessages,
 	getPrevMessages: state.getPrevMessages,
@@ -140,6 +141,7 @@ export const WorkspacesMain: React.FunctionComponent<WorkspacesMainProps> = (pro
 		getChannels,
 		setCurrentChannel,
 		updateChannelLastSeen,
+		editChannelInviteLink,
 		getMessages,
 		getPrevMessages,
 		getNextMessages,
@@ -486,6 +488,19 @@ export const WorkspacesMain: React.FunctionComponent<WorkspacesMainProps> = (pro
 		}
 	}, [currentWorkspace, currentChannel]);
 
+	const copyChannelInviteLink = useCallback(async () => {
+		try {
+			const inviteLink = currentChannel.invite_link;
+			await navigator.clipboard.writeText(inviteLink);
+
+			alertMessage.success('Link copied');
+		} catch (error) {
+			logger.error(error);
+
+			alertMessage.error('Failed');
+		}
+	}, [currentChannel]);
+
 	const goToMessage = useCallback((wId: string, cId: string, mId: string) => {
 		setUnresolvedOnly(false);
 		setActiveTab('discussion');
@@ -597,6 +612,8 @@ export const WorkspacesMain: React.FunctionComponent<WorkspacesMainProps> = (pro
 								removeUserFromChannel={removeUserFromChannel}
 								addBatchInChannel={addBatchInChannel}
 								channelUsersData={channelUsersData}
+								copyChannelInviteLink={copyChannelInviteLink}
+								editChannelInviteLink={editChannelInviteLink}
 								handleDMUser={handleDMUser}
 								getChannelUsersList={getChannelUsersList}
 								getBatchUserIds={getBatchUserIds}

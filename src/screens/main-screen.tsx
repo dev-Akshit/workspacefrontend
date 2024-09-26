@@ -7,6 +7,7 @@ import { WorkspacesScreens } from './workspaces-screens';
 import { Login, Signup } from './auth';
 import { Forgot } from './auth/forgot';
 import { ResetPassword } from './auth/resetPassword';
+import { CustomInviteLinkJoin } from './custom-invite-link';
 
 export const MainScreen: React.FunctionComponent = () => (
 	<Switch>
@@ -24,6 +25,9 @@ export const MainScreen: React.FunctionComponent = () => (
 		</Route>
 		<Route path="/signup">
 			<Redirect to="/" />
+		</Route>
+		<Route path="/customLinkChannelJoin/:suffix">
+			<CustomInviteLinkJoin />
 		</Route>
 		<Route path="/">
 			<WorkspacesScreens />
@@ -45,6 +49,9 @@ export const AuthScreen: React.FunctionComponent = () => (
 		</Route>
 		<Route path="/forgot">
 			<Forgot />
+		</Route>
+		<Route path="/customLinkChannelJoin">
+			<Login />
 		</Route>
 		<Redirect to="/login" />
 	</Switch>
