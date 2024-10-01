@@ -13,11 +13,12 @@ export interface UserDetailsCardProps {
 	showEmail?: boolean
 	showDm?: boolean
 	handleDMUser?: (userId: string) => Promise<void>
+	userStatus?: string
 }
 
 export const UserDetailsCard: React.FunctionComponent<UserDetailsCardProps> = (props) => {
 	const {
-		id, src, displayName, email, showEmail, showDm, handleDMUser,
+		id, src, displayName, email, showEmail, showDm, handleDMUser, userStatus,
 	} = props;
 
 	return (
@@ -28,7 +29,7 @@ export const UserDetailsCard: React.FunctionComponent<UserDetailsCardProps> = (p
 						id={id}
 						src={src}
 						displayName={displayName}
-						size={55}
+						size={105}
 						style={
 							{ fontSize: 15 }
 						}
@@ -44,6 +45,9 @@ export const UserDetailsCard: React.FunctionComponent<UserDetailsCardProps> = (p
 						<p className={styles.detailsCardEmail}>{email}</p>
 					</>
 				)}
+				<p>
+					{userStatus}
+				</p>
 			</div>
 			{handleDMUser && showDm ? (
 				<div className={styles.userDetailsCardFooter}>

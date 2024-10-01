@@ -17,6 +17,7 @@ interface ProfileData {
     profilePic?: string,
     description?: string,
     password?: string,
+    status?: string,
 }
 
 interface ProfileModalProps {
@@ -56,6 +57,7 @@ export const ProfileModal = (props: ProfileModalProps) => {
             const [firstName, lastName, ...other] = profileData.displayname.split(' ');
             const finalLastName = [lastName, ...other].join(' ');
             const finalFirstName = firstName.trim();
+            const status = profileData?.status || 'Hey! I am using Workspace';
             console.log(profileData.profilePic);
             formRef.current.setFields([
                 {
@@ -65,6 +67,9 @@ export const ProfileModal = (props: ProfileModalProps) => {
                 }, {
                     name: 'lastName',
                     value: finalLastName,
+                }, {
+                    name: 'status',
+                    value: status,
                 }, {
                     name: 'oldPassword',
                     value: '',
@@ -105,6 +110,10 @@ export const ProfileModal = (props: ProfileModalProps) => {
                     throw new Error('Please provide old password!');
                 }
                 dataToSend.oldPassword = formData.oldPassword;
+            }
+            dataToSend.status = formData.status;
+            if (dataToSend.status && dataToSend.status.length > 100) {
+                throw new Error('Status must be within 100 characters');
             }
             await setProfile(dataToSend);
             message.success('Profile Updated');
@@ -252,6 +261,16 @@ export const ProfileModal = (props: ProfileModalProps) => {
                             <Input type="text" />
                         </Form.Item>
                     </Layout>
+                </Layout>
+                <Layout
+                    style={{ backgroundColor: 'transparent' }}
+                >
+                    <Form.Item
+                        name="status"
+                        label="Status"
+                    >
+                        <Input type="text" />
+                    </Form.Item>
                 </Layout>
                 <Collapse
                     bordered={false}

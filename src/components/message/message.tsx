@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import {
 	Button, Popover, Popconfirm, Image, Badge, Tooltip, message as alertMessage, Spin, Select,
+	Modal,
 } from 'antd';
 import Linkify from 'react-linkify';
 
@@ -147,6 +148,8 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>((props, fo
 	const [discussionLoader, setdiscussionLoader] = useState(false);
 	const [notificationVisible, setNotificationVisible] = useState(false);
 	const [notificationChangeLoader, setNotificationChangeLoader] = useState(false);
+	const [isProfileModalVisible, setIsProfileModalVisible] = useState(false);
+	const [userStatus, setUserStatus] = useState<string>('Hey! I am using workspace.');
 
 	// const [mentorsNotifyVisible, setMentorsNotifyVisible] = useState(false);
 	// const [mentorsNotifyLoader, setMentorsNotifyLoader] = useState(false);
@@ -319,6 +322,10 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>((props, fo
 		return users;
 	}, [channelUsers, sessionData]);
 
+	const showAnyUserProfile = useCallback(() => {
+		setIsProfileModalVisible(!isProfileModalVisible);
+	}, [isProfileModalVisible]);
+
 	return (
 		<div className={styles.messageWrapper} ref={forwardedRef}>
 			<div className={styles.avatarContainer}>
@@ -328,8 +335,9 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>((props, fo
 				<UserAvatar
 					id={message.created_by?._id ?? ''}
 					src={channelUsers[message.created_by?._id]?.profilePic ? channelUsers[message.created_by?._id]?.profilePic : ''}
-					displayName={message.created_by?.displayname ?? ''}
+					displayName={channelUsers[message.created_by?._id]?.displayname ?? ''}
 					size={isSidebarEmbed ? 35 : 45}
+					showAnyUserProfile={showAnyUserProfile}
 				/>
 			</div>
 			<div className={styles.message}>
@@ -665,28 +673,37 @@ export const Message = React.forwardRef<HTMLDivElement, MessageProps>((props, fo
 
 				</div>
 				<div className={`${styles.messageContent} selectable`}>
-					<Popover
-						trigger={['click']}
-						placement="right"
-						content={(
-							<UserDetailsCard
-								id={message.created_by?._id}
-								src={sessionData?.userId === message.created_by?._id ? sessionData?.profilePic : ''}
-								displayName={message.created_by?.displayname}
-								email={message.created_by?.email}
-								showEmail={sessionData?.role !== UserRoles.User}
-								showDm={currentChannelType !== ChannelKind.Private
-									&& sessionData?.role !== '1'
-									&& handleDMUser && !isSidebarEmbed
-									&& currentChannelType !== ChannelKind.Private
-									&& message.created_by?._id !== sessionData?.userId}
-								handleDMUser={handleDMUser}
-							/>
-						)}
-						getPopupContainer={(trigger) => trigger.parentElement || document.body}
+					<Modal
+						visible={isProfileModalVisible}
+						onCancel={() => { setIsProfileModalVisible(false); }}
+						footer={null}
+						closable={false}
+						maskClosable
 					>
-						<span>{message.created_by?.displayname}</span>
-					</Popover>
+						<UserDetailsCard
+							id={message.created_by?._id}
+							src={channelUsers[message.created_by?._id]?.profilePic ? channelUsers[message.created_by?._id]?.profilePic : ''}
+							displayName={channelUsers[message?.created_by?._id]?.displayname}
+							email={message.created_by?.email}
+							showEmail={sessionData?.role !== UserRoles.User}
+							showDm={currentChannelType !== ChannelKind.Private
+								&& sessionData?.role !== '1'
+								&& handleDMUser && !isSidebarEmbed
+								&& currentChannelType !== ChannelKind.Private
+								&& message.created_by?._id !== sessionData?.userId}
+							handleDMUser={handleDMUser}
+							userStatus={channelUsers[message?.created_by?._id]?.status || userStatus}
+						/>
+					</Modal>
+					<span
+						onClick={showAnyUserProfile}
+						role="button"
+						onKeyDown={() => { }}
+						tabIndex={0}
+						style={{ cursor: 'pointer' }}
+					>
+						{channelUsers[message?.created_by?._id]?.displayname}
+					</span>
 					<span> - </span>
 					{message.status === MessageEventKind.Add || message.status === MessageEventKind.Edit ? (
 						<Linkify

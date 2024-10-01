@@ -709,6 +709,18 @@ export function createAppStore(cqWorkspacesClient: CQWorkspacesClient): UseStore
 			});
 		});
 
+		cqWorkspacesClient.on('channelUserDataChange-received', async (data: any) => {
+			logger.log('channel user data change received', data);
+			const { channelUsersData, currentChannel } = get();
+			const responseData = await cqWorkspacesClient.channelUsersData({
+				userIds: currentChannel?.user_ids,
+			});
+			set((state) => {
+				// eslint-disable-next-line no-param-reassign
+				state.channelUsersData = { ...responseData.usersData };
+			});
+		});
+
 		cqWorkspacesClient.on('deleteChannel-received', async (data: any) => {
 			logger.log('Channel is deleted by channel admin');
 			const { currentWorkspace } = get();

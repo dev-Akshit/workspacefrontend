@@ -35,6 +35,7 @@ interface ClientEvents {
 	'addPin-received': (data: any) => void
 	'removePin-received': (data: any) => void
 	'deleteChannel-received': (data: any) => void
+	'channelUserDataChange-received': (data: any) => void
 }
 
 interface SocketEmitEvents {
@@ -74,6 +75,7 @@ interface SocketListenEvents {
 	newMessage: (data: any) => void
 	likeMessage: (data: any) => void
 	unLikeMessage: (data: any) => void
+	channelUserDataChange: (data: any) => void
 	addPin: (data: any) => void
 	removePin: (data: any) => void
 }
@@ -201,6 +203,10 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		this.emit('deleteChannel-received', data);
 	};
 
+	private _onChannelUserDataChange = (data: any): void => {
+		this.emit('channelUserDataChange-received', data);
+	};
+
 	private _onDiscussionChange = (data: any): void => {
 		this.emit('isDiscussionRequired-received', data);
 	};
@@ -246,6 +252,7 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		_socket.on('deleteChannel', this._ondeleteChannel);
 		_socket.on('addPin', this._onAddPin);
 		_socket.on('removePin', this._onRemovePin);
+		_socket.on('channelUserDataChange', this._onChannelUserDataChange);
 	};
 
 	private _detachSocketListeners = (): void => {
@@ -581,6 +588,22 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 			channelId,
 		});
 
+		if (response.data.error) {
+			throw new Error(response.data.error);
+		}
+
+		return response.data;
+	};
+
+	channelUsersData = async (
+		args: {
+			userIds: [],
+		},
+	) : Promise<any> => {
+		const { userIds } = args;
+		const response = await this._workspacesAPI.post('/channel/channelUsersData', {
+			userIds,
+		});
 		if (response.data.error) {
 			throw new Error(response.data.error);
 		}
