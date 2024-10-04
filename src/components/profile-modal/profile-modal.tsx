@@ -58,7 +58,6 @@ export const ProfileModal = (props: ProfileModalProps) => {
             const finalLastName = [lastName, ...other].join(' ');
             const finalFirstName = firstName.trim();
             const status = profileData?.status || 'Hey! I am using Workspace';
-            console.log(profileData.profilePic);
             formRef.current.setFields([
                 {
                     name: 'firstName',

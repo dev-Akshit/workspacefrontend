@@ -29,9 +29,9 @@ export const UserDetailsCard: React.FunctionComponent<UserDetailsCardProps> = (p
 						id={id}
 						src={src}
 						displayName={displayName}
-						size={105}
+						size={155}
 						style={
-							{ fontSize: 15 }
+							{ fontSize: 55 }
 						}
 					/>
 				</div>
@@ -45,7 +45,7 @@ export const UserDetailsCard: React.FunctionComponent<UserDetailsCardProps> = (p
 						<p className={styles.detailsCardEmail}>{email}</p>
 					</>
 				)}
-				<p>
+				<p style={{ marginBottom: 0 }}>
 					{userStatus}
 				</p>
 			</div>
