@@ -76,6 +76,9 @@ export const ProfileModal = (props: ProfileModalProps) => {
                 }, {
                     name: 'password',
                     value: '',
+                }, {
+                    name: 'profile_pic',
+                    value: profileData.profilePic ?? '',
                 },
             ]);
 
@@ -96,8 +99,11 @@ export const ProfileModal = (props: ProfileModalProps) => {
         try {
             const dataToSend: { [key: string]: string } = {};
             if (formData.profile_pic) {
-                const profilePicURL = formData?.profile_pic?.file?.xhr?.response;
-                dataToSend.profilePic = profilePicURL;
+                const profilePicURL = formData?.profile_pic?.file?.xhr?.response
+                    ?? formData?.profile_pic;
+                if (typeof profilePicURL === 'string') {
+                    dataToSend.profilePic = profilePicURL;
+                }
             }
             dataToSend.username = `${formData.firstName ?? ''} ${formData.lastName ?? ''}`;
             dataToSend.username = dataToSend.username.trim();
