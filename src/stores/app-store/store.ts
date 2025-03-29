@@ -43,6 +43,8 @@ export interface AppState {
 	init: () => Promise<void>
 
 	login: (loginPayload: { email: string, password: string, rememberMe: boolean }) => Promise<void>
+	newLogin: (loginPayload: { email: string, password: string, rememberMe: boolean }) =>
+Promise<void>
 	signup: (signupPayload: { email: string, password: string, name: string, token: string }
 	) => Promise<void>
 	forgotPassword: (forgotPasswordPayload: { email: string, reCaptcha: string }) => Promise<void>
@@ -185,6 +187,7 @@ const initialState: AppState = {
 
 	init: async () => { },
 	login: async () => { },
+	newLogin: async () => { },
 	signup: async () => { },
 	forgotPassword: async () => { },
 	validatePasswordResetToken: async () => { },
@@ -1042,6 +1045,15 @@ export function createAppStore(cqWorkspacesClient: CQWorkspacesClient): UseStore
 				try {
 					await cqWorkspacesClient.login(loginPayload);
 				} catch (error: any) {
+				console.log('store throw');
+					throw new Error(error?.message ?? error);
+				}
+			},
+
+			newLogin: async (loginPayload) => {
+				try {
+					await cqWorkspacesClient.newLogin(loginPayload);
+				} catch (error:any) {
 					throw new Error(error?.message ?? error);
 				}
 			},

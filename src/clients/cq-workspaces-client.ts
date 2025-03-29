@@ -322,6 +322,25 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		}
 	};
 
+	newLogin = async (loginPayload: {
+		email: string;
+		password: string;
+		otp?: string;
+	}): Promise<any> => {
+		try {
+			const response = await axios.post('http://localhost:5555/auth/verify-otp',
+				loginPayload,
+				{ withCredentials: true });
+			if (response.data.error) {
+				throw new Error(response.data.error);
+			}
+			this.getSessionData();
+			this.connectSocket();
+		} catch (error: any) {
+			throw new Error(error?.message ?? 'Somthing went wrong try again.');
+		}
+	};
+
 	signup = async (signupPayload: any): Promise<any> => {
 		try {
 			const response = await this._cqAPI.post('/auth/signup', signupPayload);
@@ -599,7 +618,7 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 		args: {
 			userIds: [],
 		},
-	) : Promise<any> => {
+	): Promise<any> => {
 		const { userIds } = args;
 		const response = await this._workspacesAPI.post('/channel/channelUsersData', {
 			userIds,
@@ -616,7 +635,7 @@ export class CQWorkspacesClient extends (EventEmitter as new () => TypedEmitter<
 			workspaceId: string, channelId: string,
 			inviteLinkSuffix: string,
 		},
-	) : Promise<any> => {
+	): Promise<any> => {
 		const { channelId, workspaceId, inviteLinkSuffix } = args;
 		const response = await this._workspacesAPI.post('/channel/editInviteLink', {
 			channelId,
